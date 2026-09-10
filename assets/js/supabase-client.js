@@ -19,6 +19,12 @@
     async signOut() {
       if (client) await client.auth.signOut();
     },
+    async commitContentToGitHub() {
+      if (!client) throw new Error('Supabase is not configured.');
+      const { data, error } = await client.functions.invoke('commit-content');
+      if (error) throw error;
+      return data;
+    },
     async getSiteContent() {
       if (!client) return null;
       const { data, error } = await client.from('site_content').select('content').eq('id', 'main').maybeSingle();

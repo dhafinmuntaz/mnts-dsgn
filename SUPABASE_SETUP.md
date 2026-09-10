@@ -45,6 +45,21 @@ The dashboard currently manages these database-backed areas:
 - Pages: create and delete pages
 - Projects: create, edit, open, and delete project pages
 
+## Commit updates to GitHub
+
+The dashboard button creates or updates `content-export.json` in the GitHub repository. It is a backup snapshot of the Supabase content; the live website still reads Supabase directly.
+
+Deploy the Edge Function in `supabase/functions/commit-content/index.ts`, then configure these Supabase Edge Function secrets:
+
+```text
+GITHUB_OWNER=dhafinmuntaz
+GITHUB_REPO=mnts-dsgn
+GITHUB_BRANCH=main
+GITHUB_TOKEN=your-fine-grained-token
+```
+
+The GitHub token must be created with fine-grained access limited to this repository and **Contents: Read and write** only. Never put this token in `supabase-config.js` or frontend code.
+
 After running the SQL, open the hosted admin dashboard. Its status message should say `Supabase connected and database tables are available.`
 
 Do not publish the site as production CMS until the Supabase URL and anon key are configured and the RLS policies have been tested.

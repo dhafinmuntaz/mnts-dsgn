@@ -292,6 +292,26 @@ async function initializeAdminDashboard() {
     setStatus(connection.message, !connection.connected);
   }
 
+  const commitGithubButton = document.getElementById('commitGithubBtn');
+  if (commitGithubButton) {
+    commitGithubButton.addEventListener('click', async () => {
+      commitGithubButton.disabled = true;
+      commitGithubButton.textContent = 'Committing...';
+      try {
+        if (!window.mntsSupabase || !window.mntsSupabase.enabled) {
+          throw new Error('Supabase is not configured.');
+        }
+        const result = await window.mntsSupabase.commitContentToGitHub();
+        setStatus(result.message || 'Content committed to GitHub successfully.');
+      } catch (error) {
+        setStatus(`GitHub commit failed: ${error.message}`, true);
+      } finally {
+        commitGithubButton.disabled = false;
+        commitGithubButton.textContent = 'Commit to GitHub';
+      }
+    });
+  }
+
   const profileForm = document.getElementById('profileForm');
   if (profileForm) {
     profileForm.addEventListener('submit', async (event) => {
