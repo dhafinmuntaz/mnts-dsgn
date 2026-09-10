@@ -1,19 +1,19 @@
 {
-  "exportedAt": "2026-09-10T10:48:43.359Z",
+  "exportedAt": "2026-09-10T11:05:05.552Z",
   "exportedBy": "mantismuntaz@gmail.com",
   "siteContent": {
     "services": [
       {
         "name": "Architecture",
-        "count": "21 Projects"
+        "count": "0 Projects"
       },
       {
         "name": "Interior Design",
-        "count": "27 Projects"
+        "count": "0 Projects"
       },
       {
         "name": "Garden Design",
-        "count": "33 Projects"
+        "count": "0 Projects"
       }
     ],
     "siteName": "MNTS DSGN",
@@ -21,27 +21,30 @@
     "heroImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000",
     "heroTitle": "#AsikMasuk",
     "aboutTitle": "Tittle Github Commit 1",
-    "careerText": "We are growing our studio and looking for curious collaborators who value craftsmanship, spatial clarity, and a meaningful architectural process.",
+    "careerText": "Playful individual with absolutely good taste in design",
     "heroButton": "DISCOVER MY WORK BOII",
-    "careerTitle": "Join a studio that designs with care and composition.",
+    "careerTitle": "Persinal porotfolio.",
     "insightList": [
       {
-        "text": "Materiality and climate",
+        "text": "Excentric",
         "label": "Research"
       },
       {
-        "text": "Human-centered design flows",
+        "text": "User-centered design flows",
         "label": "Process"
       },
       {
-        "text": "Spaces that settle into place",
+        "text": "People-Place-Image",
         "label": "Journal"
       }
     ],
+    "linkedinUrl": "https://linkedin.com/",
+    "whatsappUrl": "https://wa.me/6287833804321",
     "contactEmail": "mantismuntaz@ahuy.com",
     "contactPhone": "+62 9999999999",
     "heroSubtitle": "Design by Asik asal masuk",
     "insightTitle": "Thoughtful stories and design insight from our practice.",
+    "instagramUrl": "https://instagram.com/",
     "featuredImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920",
     "featuredTitle": "JS",
     "contactAddress": "Cimahi",
