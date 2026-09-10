@@ -1,0 +1,94 @@
+{
+  "exportedAt": "2026-09-10T10:48:43.359Z",
+  "exportedBy": "mantismuntaz@gmail.com",
+  "siteContent": {
+    "services": [
+      {
+        "name": "Architecture",
+        "count": "21 Projects"
+      },
+      {
+        "name": "Interior Design",
+        "count": "27 Projects"
+      },
+      {
+        "name": "Garden Design",
+        "count": "33 Projects"
+      }
+    ],
+    "siteName": "MNTS DSGN",
+    "aboutText": "Github About Commit 1",
+    "heroImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000",
+    "heroTitle": "#AsikMasuk",
+    "aboutTitle": "Tittle Github Commit 1",
+    "careerText": "We are growing our studio and looking for curious collaborators who value craftsmanship, spatial clarity, and a meaningful architectural process.",
+    "heroButton": "DISCOVER MY WORK BOII",
+    "careerTitle": "Join a studio that designs with care and composition.",
+    "insightList": [
+      {
+        "text": "Materiality and climate",
+        "label": "Research"
+      },
+      {
+        "text": "Human-centered design flows",
+        "label": "Process"
+      },
+      {
+        "text": "Spaces that settle into place",
+        "label": "Journal"
+      }
+    ],
+    "contactEmail": "mantismuntaz@ahuy.com",
+    "contactPhone": "+62 9999999999",
+    "heroSubtitle": "Design by Asik asal masuk",
+    "insightTitle": "Thoughtful stories and design insight from our practice.",
+    "featuredImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920",
+    "featuredTitle": "JS",
+    "contactAddress": "Cimahi",
+    "featuredLocation": "Cimahi"
+  },
+  "pages": [
+    {
+      "id": "home",
+      "name": "Home",
+      "slug": "home",
+      "created_at": "2026-09-10T09:39:58.282974+00:00"
+    },
+    {
+      "id": "about",
+      "name": "About",
+      "slug": "about",
+      "created_at": "2026-09-10T09:39:58.282974+00:00"
+    },
+    {
+      "id": "projects",
+      "name": "Projects",
+      "slug": "projects",
+      "created_at": "2026-09-10T09:39:58.282974+00:00"
+    },
+    {
+      "id": "contact",
+      "name": "Contact",
+      "slug": "contact",
+      "created_at": "2026-09-10T09:39:58.282974+00:00"
+    }
+  ],
+  "projects": [
+    {
+      "id": "js",
+      "title": "JS",
+      "location": "JS",
+      "description": "JS",
+      "image": "https://serupa.id/wp-content/uploads/2018/09/teknik-lukis-dibalik-mister-senyuman-monalisa-sfumato.jpg",
+      "created_at": "2026-09-10T10:27:34.548866+00:00"
+    },
+    {
+      "id": "saninten-airbnb",
+      "title": "Saninten airbnb",
+      "location": "Bandung, West Java",
+      "description": "A quiet luxury retreat designed around climate, material warmth, and daily rituals.",
+      "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920",
+      "created_at": "2026-09-10T09:39:58.282974+00:00"
+    }
+  ]
+}
