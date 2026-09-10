@@ -32,6 +32,18 @@
             <p class="subtle">Choose a section below. Changes are saved to Supabase and appear on the public site after refresh.</p>
           </section>
 
+          <section class="admin-section admin-data-status" aria-labelledby="dataStatusTitle">
+            <div>
+              <p class="admin-kicker">Live database</p>
+              <h2 id="dataStatusTitle">Content connected to Supabase</h2>
+            </div>
+            <dl class="admin-data-summary">
+              <div><dt>Site content</dt><dd id="siteContentStatus">Checking...</dd></div>
+              <div><dt>Pages</dt><dd id="pageCountStatus">Checking...</dd></div>
+              <div><dt>Projects</dt><dd id="projectCountStatus">Checking...</dd></div>
+            </dl>
+          </section>
+
           <nav class="admin-page-grid" aria-label="Content management sections">
             <a class="admin-page-card" href="admin-about.html">
               <span class="admin-card-index">01</span>

@@ -74,6 +74,21 @@
       if (error) throw error;
       return data;
     },
+    async getDashboardSummary() {
+      if (!client) return null;
+      const [contentResult, pagesResult, projectsResult] = await Promise.all([
+        client.from('site_content').select('updated_at').eq('id', 'main').maybeSingle(),
+        client.from('pages').select('id'),
+        client.from('projects').select('id')
+      ]);
+      const failed = [contentResult, pagesResult, projectsResult].find((result) => result.error);
+      if (failed) throw failed.error;
+      return {
+        contentUpdatedAt: contentResult.data?.updated_at || null,
+        pageCount: pagesResult.data?.length || 0,
+        projectCount: projectsResult.data?.length || 0
+      };
+    },
     async replaceProjects(projects) {
       if (!client) return;
       const { data: current, error: readError } = await client.from('projects').select('id');

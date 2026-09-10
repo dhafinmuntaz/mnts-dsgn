@@ -276,6 +276,19 @@ async function initializeAdminDashboard() {
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const connection = await window.mntsSupabase.testConnection();
     setStatus(connection.message, !connection.connected);
+    if (connection.connected) {
+      try {
+        const summary = await window.mntsSupabase.getDashboardSummary();
+        const contentStatus = document.getElementById('siteContentStatus');
+        const pageCount = document.getElementById('pageCountStatus');
+        const projectCount = document.getElementById('projectCountStatus');
+        if (contentStatus) contentStatus.textContent = summary.contentUpdatedAt ? `Updated ${new Date(summary.contentUpdatedAt).toLocaleString()}` : 'Not saved yet';
+        if (pageCount) pageCount.textContent = `${summary.pageCount} pages`;
+        if (projectCount) projectCount.textContent = `${summary.projectCount} projects`;
+      } catch (error) {
+        setStatus(`Database summary failed: ${error.message}`, true);
+      }
+    }
   }
 
   const commitGithubButton = document.getElementById('commitGithubBtn');
