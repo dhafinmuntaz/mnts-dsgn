@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login | MNTS DSGN</title>
+    <link rel="stylesheet" href="../assets/css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <div class="login-wrap">
+        <div class="login-card">
+          <p class="admin-kicker">MNTS DSGN content studio</p>
+          <h2>Admin Login</h2>
+          <p class="subtle">Sign in with your Supabase account to manage the website.</p>
+          <form id="loginForm">
+            <div class="form-field full"><label for="username">Email</label><input id="username" name="username" type="email" placeholder="admin@example.com" required /></div>
+            <div class="form-field full"><label for="password">Password</label><input id="password" name="password" type="password" placeholder="Your password" required /></div>
+            <div class="form-actions"><button class="btn primary" type="submit">Login</button></div>
+            <div id="statusMessage" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>window.MNTS_ADMIN_DASHBOARD_PATH = '../admin-dashboard.html'; window.MNTS_LOGIN_PATH = './';</script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/admin.js"></script>
+  </body>
+</html>

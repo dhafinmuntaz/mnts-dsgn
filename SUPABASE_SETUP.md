@@ -2,6 +2,11 @@
 
 This project is a static site, so GitHub Pages can host the frontend while Supabase provides online authentication and database storage on its free tier.
 
+Hosted URLs:
+
+- Public site: `https://dhafinmuntaz.github.io/mnts-dsgn/`
+- Admin login: `https://dhafinmuntaz.github.io/mnts-dsgn/login/`
+
 ## 1. Create the Supabase project
 
 1. Create a project at <https://supabase.com>.
@@ -29,13 +34,13 @@ The `service_role` key must never be added to browser code, GitHub, or this repo
 
 ## 3. Next application migration
 
-The current prototype still uses localStorage so it remains usable offline. The next code change should replace these functions in `assets/js/admin.js` and `assets/js/site.js` with Supabase calls:
+The hosted application is Supabase-only. The homepage reads public rows from Supabase, and the admin pages require a Supabase Auth session before loading or saving content:
 
 - admin login: Supabase Auth email/password sign-in
 - profile/about data: `site_content`
 - pages: `pages`
 - projects: `projects`
-- images: a Supabase Storage bucket with authenticated upload policies
+- images: public image URLs entered in the dashboard; image files are not uploaded to Supabase
 
 The dashboard currently manages these database-backed areas:
 
@@ -60,6 +65,6 @@ GITHUB_TOKEN=your-fine-grained-token
 
 The GitHub token must be created with fine-grained access limited to this repository and **Contents: Read and write** only. Never put this token in `supabase-config.js` or frontend code.
 
-After running the SQL, open the hosted admin dashboard. Its status message should say `Supabase connected and database tables are available.`
+After running the SQL, open the hosted admin login. The dashboard status should say `Supabase connected and database tables are available.`
 
 Do not publish the site as production CMS until the Supabase URL and anon key are configured and the RLS policies have been tested.

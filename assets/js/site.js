@@ -27,51 +27,26 @@ const defaultSiteContent = {
   ]
 };
 
-const storageKey = 'studioASAContent';
-const projectsStorageKey = 'studioASAProjects';
-
 async function getProjectData() {
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const remote = await window.mntsSupabase.getProjects();
-    if (remote && remote.length) return remote;
+    return remote || [];
   }
-  try {
-    const saved = JSON.parse(localStorage.getItem(projectsStorageKey));
-    return Array.isArray(saved) && saved.length ? saved : [];
-  } catch (error) {
-    return [];
-  }
+  return [];
 }
 
 async function getStoredContent() {
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const remote = await window.mntsSupabase.getSiteContent();
-    if (remote) return { ...structuredClone(defaultSiteContent), ...remote };
+    return { ...structuredClone(defaultSiteContent), ...(remote || {}) };
   }
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey));
-    return saved || defaultSiteContent;
-  } catch (error) {
-    return defaultSiteContent;
-  }
+  return structuredClone(defaultSiteContent);
 }
 
 async function populateSite() {
   const content = await getStoredContent();
   const projects = await getProjectData();
   const featuredProject = projects[0] || {};
-
-  if (featuredProject.location) {
-    content.featuredLocation = featuredProject.location;
-  }
-
-  if (featuredProject.title) {
-    content.featuredTitle = featuredProject.title;
-  }
-
-  if (featuredProject.image) {
-    content.featuredImage = featuredProject.image;
-  }
 
   document.title = `${content.siteName} | Design for Human & Space`;
   const siteNameNodes = document.querySelectorAll('[data-site-name]');

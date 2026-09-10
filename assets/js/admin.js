@@ -1,12 +1,5 @@
-const adminCredentials = {
-  username: 'admin',
-  password: 'admin'
-};
-
-const siteStorageKey = 'studioASAContent';
-const pagesStorageKey = 'studioASAPages';
-const projectsStorageKey = 'studioASAProjects';
-const adminSessionKey = 'studioASAAdminLoggedIn';
+const dashboardPath = window.MNTS_ADMIN_DASHBOARD_PATH || 'admin-dashboard.html';
+const loginPath = window.MNTS_LOGIN_PATH || 'login/';
 
 const defaultSiteContent = {
   siteName: 'MNTS DSGN',
@@ -54,54 +47,45 @@ const defaultProjects = [
   }
 ];
 
-function safeRead(key, fallback) {
-  try {
-    const value = JSON.parse(localStorage.getItem(key));
-    return value ?? fallback;
-  } catch (error) {
-    return fallback;
-  }
-}
-
 async function readStoredContent() {
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const remote = await window.mntsSupabase.getSiteContent();
-    if (remote) return { ...structuredClone(defaultSiteContent), ...remote };
+    return { ...structuredClone(defaultSiteContent), ...(remote || {}) };
   }
-  return safeRead(siteStorageKey, structuredClone(defaultSiteContent));
+  return structuredClone(defaultSiteContent);
 }
 
 async function saveContent(data) {
-  localStorage.setItem(siteStorageKey, JSON.stringify(data));
-  if (window.mntsSupabase && window.mntsSupabase.enabled) await window.mntsSupabase.saveSiteContent(data);
+  if (!window.mntsSupabase || !window.mntsSupabase.enabled) throw new Error('Supabase is not configured.');
+  await window.mntsSupabase.saveSiteContent(data);
   window.dispatchEvent(new Event('siteDataUpdated'));
 }
 
 async function readPages() {
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const remote = await window.mntsSupabase.getPages();
-    if (remote && remote.length) return remote;
+    return remote || [];
   }
-  return safeRead(pagesStorageKey, structuredClone(defaultPages));
+  return structuredClone(defaultPages);
 }
 
 async function savePages(data) {
-  localStorage.setItem(pagesStorageKey, JSON.stringify(data));
-  if (window.mntsSupabase && window.mntsSupabase.enabled) await window.mntsSupabase.replacePages(data);
+  if (!window.mntsSupabase || !window.mntsSupabase.enabled) throw new Error('Supabase is not configured.');
+  await window.mntsSupabase.replacePages(data);
   window.dispatchEvent(new Event('siteDataUpdated'));
 }
 
 async function readProjects() {
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const remote = await window.mntsSupabase.getProjects();
-    if (remote && remote.length) return remote;
+    return remote || [];
   }
-  return safeRead(projectsStorageKey, structuredClone(defaultProjects));
+  return structuredClone(defaultProjects);
 }
 
 async function saveProjects(data) {
-  localStorage.setItem(projectsStorageKey, JSON.stringify(data));
-  if (window.mntsSupabase && window.mntsSupabase.enabled) await window.mntsSupabase.replaceProjects(data);
+  if (!window.mntsSupabase || !window.mntsSupabase.enabled) throw new Error('Supabase is not configured.');
+  await window.mntsSupabase.replaceProjects(data);
   window.dispatchEvent(new Event('siteDataUpdated'));
 }
 
@@ -126,6 +110,7 @@ async function renderProfileForm() {
   form.heroSubtitle.value = content.heroSubtitle || defaultSiteContent.heroSubtitle;
   form.heroTitle.value = content.heroTitle || defaultSiteContent.heroTitle;
   form.heroButton.value = content.heroButton || defaultSiteContent.heroButton;
+  form.heroImage.value = content.heroImage || defaultSiteContent.heroImage;
   form.featuredTitle.value = content.featuredTitle || defaultSiteContent.featuredTitle;
   form.featuredLocation.value = content.featuredLocation || defaultSiteContent.featuredLocation;
   form.featuredImage.value = content.featuredImage || defaultSiteContent.featuredImage;
@@ -135,24 +120,6 @@ async function renderProfileForm() {
 
   const heroPreview = document.getElementById('heroPreview');
   if (heroPreview) heroPreview.src = content.heroImage || defaultSiteContent.heroImage;
-}
-
-function attachImagePreview(inputId, previewId) {
-  const input = document.getElementById(inputId);
-  const preview = document.getElementById(previewId);
-  if (!input || !preview) return;
-
-  input.addEventListener('change', (event) => {
-    const file = event.target.files && event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (loadEvent) => {
-      preview.src = loadEvent.target.result;
-      preview.parentElement.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  });
 }
 
 async function renderAboutForm() {
@@ -274,9 +241,9 @@ async function renderProjectsList() {
 async function initializeAdminDashboard() {
   const isLoggedIn = window.mntsSupabase && window.mntsSupabase.enabled
     ? Boolean((await window.mntsSupabase.client.auth.getSession()).data.session)
-    : sessionStorage.getItem(adminSessionKey) === 'true';
+    : false;
   if (!isLoggedIn) {
-    window.location.replace('admin-login.html');
+    window.location.replace(loginPath);
     return;
   }
 
@@ -285,8 +252,6 @@ async function initializeAdminDashboard() {
   await renderSectionsForm();
   await renderPagesList();
   await renderProjectsList();
-  attachImagePreview('heroUpload', 'heroPreview');
-
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
     const connection = await window.mntsSupabase.testConnection();
     setStatus(connection.message, !connection.connected);
@@ -327,10 +292,6 @@ async function initializeAdminDashboard() {
       content.featuredTitle = profileForm.featuredTitle.value.trim() || defaultSiteContent.featuredTitle;
       content.featuredLocation = profileForm.featuredLocation.value.trim() || defaultSiteContent.featuredLocation;
       content.featuredImage = profileForm.featuredImage.value.trim() || defaultSiteContent.featuredImage;
-
-      if (document.getElementById('heroPreview') && document.getElementById('heroPreview').src) {
-        content.heroImage = document.getElementById('heroPreview').src;
-      }
 
       try {
         await saveContent(content);
@@ -459,9 +420,8 @@ async function initializeAdminDashboard() {
   const logoutButton = document.getElementById('logoutBtn');
   if (logoutButton) {
     logoutButton.addEventListener('click', async () => {
-      sessionStorage.removeItem(adminSessionKey);
       if (window.mntsSupabase && window.mntsSupabase.enabled) await window.mntsSupabase.signOut();
-      window.location.href = 'admin-login.html';
+      window.location.href = loginPath;
     });
   }
 }
@@ -478,13 +438,12 @@ function handleLogin() {
     if (window.mntsSupabase && window.mntsSupabase.enabled) {
       const { error } = await window.mntsSupabase.signIn(username, password);
       if (!error) {
-        window.location.replace('admin-dashboard.html');
+        window.location.replace(dashboardPath);
         return;
       }
       setStatus(error.message, true);
-    } else if (username === adminCredentials.username && password === adminCredentials.password) {
-      sessionStorage.setItem(adminSessionKey, 'true');
-      window.location.replace('admin-dashboard.html');
+    } else if (!window.mntsSupabase || !window.mntsSupabase.enabled) {
+      setStatus('Supabase is not configured.', true);
       return;
     }
 
@@ -499,9 +458,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (isLoginPage) {
     const hasRemoteSession = window.mntsSupabase && window.mntsSupabase.enabled
       ? Boolean((await window.mntsSupabase.client.auth.getSession()).data.session)
-      : sessionStorage.getItem(adminSessionKey) === 'true';
+      : false;
     if (hasRemoteSession) {
-      window.location.replace('admin-dashboard.html');
+      window.location.replace(dashboardPath);
       return;
     }
     handleLogin();
