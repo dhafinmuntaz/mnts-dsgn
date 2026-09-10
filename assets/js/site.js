@@ -17,6 +17,9 @@ const defaultSiteContent = {
   contactPhone: '+62 88102 2020 380',
   contactAddress: 'Jalan Pulolaut No 27, Bandung, West Java',
   contactEmail: 'hello@studioasa.co',
+  whatsappUrl: 'https://wa.me/62881022020380',
+  instagramUrl: 'https://instagram.com/',
+  linkedinUrl: 'https://linkedin.com/',
   services: [
     { name: 'Architecture', count: '21 Projects' },
     { name: 'Interior Design', count: '27 Projects' },
@@ -91,6 +94,13 @@ async function populateSite() {
   if (contactAddress) contactAddress.textContent = content.contactAddress;
   if (contactEmail) contactEmail.textContent = content.contactEmail;
   if (contactEmail) contactEmail.href = `mailto:${content.contactEmail}`;
+
+  const whatsappLink = document.querySelector('[data-whatsapp-link]');
+  const instagramLink = document.querySelector('[data-instagram-link]');
+  const linkedinLink = document.querySelector('[data-linkedin-link]');
+  if (whatsappLink) whatsappLink.href = content.whatsappUrl;
+  if (instagramLink) instagramLink.href = content.instagramUrl;
+  if (linkedinLink) linkedinLink.href = content.linkedinUrl;
 
   const serviceGrid = document.querySelector('[data-services-grid]');
   if (serviceGrid && Array.isArray(content.services)) {

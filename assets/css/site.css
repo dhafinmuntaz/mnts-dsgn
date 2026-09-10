@@ -684,6 +684,24 @@ footer {
   box-shadow: 0 12px 24px rgba(34, 197, 94, 0.25);
 }
 
+.social-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.social-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+}
+
+.social-btn:hover,
+.social-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+}
+
 @media (max-width: 900px) {
   .nav-links {
     display: none;

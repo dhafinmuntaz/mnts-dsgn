@@ -20,6 +20,9 @@ const defaultSiteContent = {
   contactPhone: '+62 88102 2020 380',
   contactAddress: 'Jalan Pulolaut No 27, Bandung, West Java',
   contactEmail: 'hello@studioasa.co',
+  whatsappUrl: 'https://wa.me/62881022020380',
+  instagramUrl: 'https://instagram.com/',
+  linkedinUrl: 'https://linkedin.com/',
   services: [
     { name: 'Architecture', count: '21 Projects' },
     { name: 'Interior Design', count: '27 Projects' },
@@ -123,6 +126,9 @@ async function renderProfileForm() {
   form.contactPhone.value = content.contactPhone || defaultSiteContent.contactPhone;
   form.contactAddress.value = content.contactAddress || defaultSiteContent.contactAddress;
   form.contactEmail.value = content.contactEmail || defaultSiteContent.contactEmail;
+  form.whatsappUrl.value = content.whatsappUrl || defaultSiteContent.whatsappUrl;
+  form.instagramUrl.value = content.instagramUrl || defaultSiteContent.instagramUrl;
+  form.linkedinUrl.value = content.linkedinUrl || defaultSiteContent.linkedinUrl;
 
   const heroPreview = document.getElementById('heroPreview');
   if (heroPreview) heroPreview.src = content.heroImage || defaultSiteContent.heroImage;
@@ -295,6 +301,9 @@ async function initializeAdminDashboard() {
       content.contactPhone = profileForm.contactPhone.value.trim() || defaultSiteContent.contactPhone;
       content.contactAddress = profileForm.contactAddress.value.trim() || defaultSiteContent.contactAddress;
       content.contactEmail = profileForm.contactEmail.value.trim() || defaultSiteContent.contactEmail;
+      content.whatsappUrl = profileForm.whatsappUrl.value.trim() || defaultSiteContent.whatsappUrl;
+      content.instagramUrl = profileForm.instagramUrl.value.trim() || defaultSiteContent.instagramUrl;
+      content.linkedinUrl = profileForm.linkedinUrl.value.trim() || defaultSiteContent.linkedinUrl;
 
       try {
         await saveContent(content);
