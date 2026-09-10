@@ -147,6 +147,9 @@ async function renderAboutForm() {
 
   form.aboutTitle.value = content.aboutTitle || defaultSiteContent.aboutTitle;
   form.aboutText.value = content.aboutText || defaultSiteContent.aboutText;
+  form.studioYears.value = content.studioYears || defaultSiteContent.studioYears;
+  form.projectCount.value = content.projectCount || defaultSiteContent.projectCount;
+  form.regionCount.value = content.regionCount || defaultSiteContent.regionCount;
 }
 
 async function renderSectionsForm() {
@@ -357,6 +360,9 @@ async function initializeAdminDashboard() {
       const content = await readStoredContent();
       content.aboutTitle = aboutForm.aboutTitle.value.trim() || defaultSiteContent.aboutTitle;
       content.aboutText = aboutForm.aboutText.value.trim() || defaultSiteContent.aboutText;
+      content.studioYears = aboutForm.studioYears.value.trim() || defaultSiteContent.studioYears;
+      content.projectCount = aboutForm.projectCount.value.trim() || defaultSiteContent.projectCount;
+      content.regionCount = aboutForm.regionCount.value.trim() || defaultSiteContent.regionCount;
       try {
         await saveContent(content);
         setStatus('About section updated successfully.');
