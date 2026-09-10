@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/admin.css" />
   </head>
-  <body>
+  <body data-admin-page="dashboard">
     <div class="admin-shell admin-shell-large">
       <div class="admin-panel">
         <header class="admin-header">
@@ -25,227 +25,34 @@
         </header>
 
         <div class="admin-body admin-body-large">
-          <section class="admin-section">
-            <h2>Profile</h2>
-            <form id="profileForm">
-              <div class="form-grid">
-                <div class="form-field">
-                  <label for="siteName">Site Name</label>
-                  <input id="siteName" name="siteName" type="text" />
-                </div>
-
-                <div class="form-field">
-                  <label for="heroButton">Hero Button</label>
-                  <input id="heroButton" name="heroButton" type="text" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="heroSubtitle">Hero Subtitle</label>
-                  <input id="heroSubtitle" name="heroSubtitle" type="text" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="heroTitle">Hero Title</label>
-                  <input id="heroTitle" name="heroTitle" type="text" />
-                </div>
-
-                <div class="form-field">
-                  <label for="featuredTitle">Featured Project Title</label>
-                  <input id="featuredTitle" name="featuredTitle" type="text" />
-                </div>
-
-                <div class="form-field">
-                  <label for="featuredLocation">Featured Project Location</label>
-                  <input id="featuredLocation" name="featuredLocation" type="text" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="featuredImage">Featured Project Image URL</label>
-                  <input id="featuredImage" name="featuredImage" type="url" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="heroUpload">Hero Image</label>
-                  <input id="heroUpload" name="heroUpload" type="file" accept="image/*" />
-                  <div class="preview-box">
-                    <img id="heroPreview" src="" alt="Hero preview" />
-                  </div>
-                </div>
-
-                <div class="form-field">
-                  <label for="contactPhone">Phone</label>
-                  <input id="contactPhone" name="contactPhone" type="text" />
-                </div>
-
-                <div class="form-field">
-                  <label for="contactEmail">Email</label>
-                  <input id="contactEmail" name="contactEmail" type="email" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="contactAddress">Address</label>
-                  <input id="contactAddress" name="contactAddress" type="text" />
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="btn primary" type="submit">Save Profile</button>
-              </div>
-            </form>
+          <section class="admin-section admin-welcome">
+            <p class="admin-kicker">MNTS DSGN content studio</p>
+            <h2>Manage every part of the website from one place.</h2>
+            <p class="subtle">Choose a section below. Changes are saved to Supabase and appear on the public site after refresh.</p>
           </section>
 
-          <section class="admin-section">
-            <h2>About</h2>
-            <form id="aboutForm">
-              <div class="form-grid">
-                <div class="form-field full">
-                  <label for="aboutTitle">About Title</label>
-                  <input id="aboutTitle" name="aboutTitle" type="text" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="aboutText">About Text</label>
-                  <textarea id="aboutText" name="aboutText"></textarea>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="btn primary" type="submit">Save About</button>
-              </div>
-            </form>
-          </section>
-
-          <section class="admin-section">
-            <h2>Homepage Sections</h2>
-            <form id="sectionsForm">
-              <div class="form-grid">
-                <div class="form-field full">
-                  <label for="insightTitle">Insights Title</label>
-                  <input id="insightTitle" name="insightTitle" type="text" />
-                </div>
-
-                <div class="form-field">
-                  <label for="insightOneLabel">Insight 1 Label</label>
-                  <input id="insightOneLabel" name="insightOneLabel" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="insightOneText">Insight 1 Text</label>
-                  <input id="insightOneText" name="insightOneText" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="insightTwoLabel">Insight 2 Label</label>
-                  <input id="insightTwoLabel" name="insightTwoLabel" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="insightTwoText">Insight 2 Text</label>
-                  <input id="insightTwoText" name="insightTwoText" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="insightThreeLabel">Insight 3 Label</label>
-                  <input id="insightThreeLabel" name="insightThreeLabel" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="insightThreeText">Insight 3 Text</label>
-                  <input id="insightThreeText" name="insightThreeText" type="text" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="careerTitle">Career Title</label>
-                  <input id="careerTitle" name="careerTitle" type="text" />
-                </div>
-                <div class="form-field full">
-                  <label for="careerText">Career Text</label>
-                  <textarea id="careerText" name="careerText"></textarea>
-                </div>
-
-                <div class="form-field">
-                  <label for="serviceOneName">Service 1 Name</label>
-                  <input id="serviceOneName" name="serviceOneName" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="serviceOneCount">Service 1 Count</label>
-                  <input id="serviceOneCount" name="serviceOneCount" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="serviceTwoName">Service 2 Name</label>
-                  <input id="serviceTwoName" name="serviceTwoName" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="serviceTwoCount">Service 2 Count</label>
-                  <input id="serviceTwoCount" name="serviceTwoCount" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="serviceThreeName">Service 3 Name</label>
-                  <input id="serviceThreeName" name="serviceThreeName" type="text" />
-                </div>
-                <div class="form-field">
-                  <label for="serviceThreeCount">Service 3 Count</label>
-                  <input id="serviceThreeCount" name="serviceThreeCount" type="text" />
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="btn primary" type="submit">Save Homepage Sections</button>
-              </div>
-            </form>
-          </section>
-
-          <section class="admin-section">
-            <h2>Pages</h2>
-            <form id="pageForm">
-              <div class="form-grid">
-                <div class="form-field">
-                  <label for="pageName">Page Name</label>
-                  <input id="pageName" name="pageName" type="text" placeholder="Projects" />
-                </div>
-
-                <div class="form-field">
-                  <label for="pageSlug">Page Slug</label>
-                  <input id="pageSlug" name="pageSlug" type="text" placeholder="projects" />
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="btn primary" type="submit">Create Page</button>
-              </div>
-            </form>
-
-            <ul id="pageList" class="item-list"></ul>
-          </section>
-
-          <section class="admin-section">
-            <h2>Projects</h2>
-            <form id="projectForm">
-              <input id="projectId" name="projectId" type="hidden" />
-              <div class="form-grid">
-                <div class="form-field">
-                  <label for="projectTitle">Project Title</label>
-                  <input id="projectTitle" name="projectTitle" type="text" />
-                </div>
-
-                <div class="form-field">
-                  <label for="projectLocation">Location</label>
-                  <input id="projectLocation" name="projectLocation" type="text" />
-                </div>
-
-                <div class="form-field full">
-                  <label for="projectDescription">Description</label>
-                  <textarea id="projectDescription" name="projectDescription"></textarea>
-                </div>
-
-                <div class="form-field full">
-                  <label for="projectImage">Project Image URL</label>
-                  <input id="projectImage" name="projectImage" type="url" placeholder="https://example.com/project.jpg" />
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="btn primary" id="projectSubmit" type="submit">Create Project Page</button>
-              </div>
-            </form>
-
-            <ul id="projectList" class="item-list project-list"></ul>
-          </section>
+          <nav class="admin-page-grid" aria-label="Content management sections">
+            <a class="admin-page-card" href="admin-about.html">
+              <span class="admin-card-index">01</span>
+              <strong>About</strong>
+              <small>Studio story and description</small>
+            </a>
+            <a class="admin-page-card" href="admin-homepage.html">
+              <span class="admin-card-index">02</span>
+              <strong>Homepage Sections</strong>
+              <small>Hero, contact, insights, career, services</small>
+            </a>
+            <a class="admin-page-card" href="admin-pages.html">
+              <span class="admin-card-index">03</span>
+              <strong>Pages</strong>
+              <small>Create and remove site pages</small>
+            </a>
+            <a class="admin-page-card" href="admin-projects.html">
+              <span class="admin-card-index">04</span>
+              <strong>Projects</strong>
+              <small>Create, edit, and remove projects</small>
+            </a>
+          </nav>
 
           <div id="statusMessage" aria-live="polite"></div>
         </div>

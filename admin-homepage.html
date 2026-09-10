@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Homepage Manager | MNTS DSGN</title><link rel="stylesheet" href="assets/css/admin.css" /></head>
+  <body data-admin-page="homepage"><div class="admin-shell admin-shell-large"><div class="admin-panel">
+    <header class="admin-header"><div><p class="admin-kicker">Content manager / 02</p><h1>Homepage Sections</h1></div><div class="admin-actions"><a class="btn secondary" href="admin-dashboard.html">Dashboard</a><a class="btn secondary" href="index.html" target="_blank" rel="noreferrer">Preview</a><button class="btn secondary" id="logoutBtn" type="button">Logout</button></div></header>
+    <main class="admin-body admin-body-large">
+      <section class="admin-section"><h2>Hero, featured project, and contact</h2><form id="profileForm"><div class="form-grid">
+        <div class="form-field"><label for="siteName">Site Name</label><input id="siteName" name="siteName" type="text" /></div><div class="form-field"><label for="heroButton">Hero Button</label><input id="heroButton" name="heroButton" type="text" /></div>
+        <div class="form-field full"><label for="heroSubtitle">Hero Subtitle</label><input id="heroSubtitle" name="heroSubtitle" type="text" /></div><div class="form-field full"><label for="heroTitle">Hero Title</label><input id="heroTitle" name="heroTitle" type="text" /></div>
+        <div class="form-field"><label for="featuredTitle">Featured Project Title</label><input id="featuredTitle" name="featuredTitle" type="text" /></div><div class="form-field"><label for="featuredLocation">Featured Location</label><input id="featuredLocation" name="featuredLocation" type="text" /></div>
+        <div class="form-field full"><label for="featuredImage">Featured Image URL</label><input id="featuredImage" name="featuredImage" type="url" /></div><div class="form-field full"><label for="heroUpload">Hero Image Upload</label><input id="heroUpload" name="heroUpload" type="file" accept="image/*" /><div class="preview-box"><img id="heroPreview" src="" alt="Hero preview" /></div></div>
+        <div class="form-field"><label for="contactPhone">Phone</label><input id="contactPhone" name="contactPhone" type="text" /></div><div class="form-field"><label for="contactEmail">Email</label><input id="contactEmail" name="contactEmail" type="email" /></div><div class="form-field full"><label for="contactAddress">Address</label><input id="contactAddress" name="contactAddress" type="text" /></div>
+      </div><div class="form-actions"><button class="btn primary" type="submit">Save Homepage</button></div></form></section>
+      <section class="admin-section"><h2>Insights, career, and services</h2><form id="sectionsForm"><div class="form-grid">
+        <div class="form-field full"><label for="insightTitle">Insights Title</label><input id="insightTitle" name="insightTitle" type="text" /></div>
+        <div class="form-field"><label for="insightOneLabel">Insight 1 Label</label><input id="insightOneLabel" name="insightOneLabel" type="text" /></div><div class="form-field"><label for="insightOneText">Insight 1 Text</label><input id="insightOneText" name="insightOneText" type="text" /></div>
+        <div class="form-field"><label for="insightTwoLabel">Insight 2 Label</label><input id="insightTwoLabel" name="insightTwoLabel" type="text" /></div><div class="form-field"><label for="insightTwoText">Insight 2 Text</label><input id="insightTwoText" name="insightTwoText" type="text" /></div>
+        <div class="form-field"><label for="insightThreeLabel">Insight 3 Label</label><input id="insightThreeLabel" name="insightThreeLabel" type="text" /></div><div class="form-field"><label for="insightThreeText">Insight 3 Text</label><input id="insightThreeText" name="insightThreeText" type="text" /></div>
+        <div class="form-field full"><label for="careerTitle">Career Title</label><input id="careerTitle" name="careerTitle" type="text" /></div><div class="form-field full"><label for="careerText">Career Text</label><textarea id="careerText" name="careerText"></textarea></div>
+        <div class="form-field"><label for="serviceOneName">Service 1 Name</label><input id="serviceOneName" name="serviceOneName" type="text" /></div><div class="form-field"><label for="serviceOneCount">Service 1 Count</label><input id="serviceOneCount" name="serviceOneCount" type="text" /></div>
+        <div class="form-field"><label for="serviceTwoName">Service 2 Name</label><input id="serviceTwoName" name="serviceTwoName" type="text" /></div><div class="form-field"><label for="serviceTwoCount">Service 2 Count</label><input id="serviceTwoCount" name="serviceTwoCount" type="text" /></div>
+        <div class="form-field"><label for="serviceThreeName">Service 3 Name</label><input id="serviceThreeName" name="serviceThreeName" type="text" /></div><div class="form-field"><label for="serviceThreeCount">Service 3 Count</label><input id="serviceThreeCount" name="serviceThreeCount" type="text" /></div>
+      </div><div class="form-actions"><button class="btn primary" type="submit">Save Sections</button></div></form></section><div id="statusMessage" aria-live="polite"></div>
+    </main>
+  </div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/js/supabase-config.js"></script><script src="assets/js/supabase-client.js"></script><script src="assets/js/admin.js"></script>
+  </body>
+</html>

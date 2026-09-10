@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Manager | MNTS DSGN</title>
+    <link rel="stylesheet" href="assets/css/admin.css" />
+  </head>
+  <body data-admin-page="about">
+    <div class="admin-shell admin-shell-large"><div class="admin-panel">
+      <header class="admin-header"><div><p class="admin-kicker">Content manager / 01</p><h1>About</h1></div><div class="admin-actions"><a class="btn secondary" href="admin-dashboard.html">Dashboard</a><button class="btn secondary" id="logoutBtn" type="button">Logout</button></div></header>
+      <main class="admin-body admin-body-large">
+        <section class="admin-section"><p class="subtle">Shape the studio story shown on the public About section.</p>
+          <form id="aboutForm"><div class="form-grid">
+            <div class="form-field full"><label for="aboutTitle">About Title</label><input id="aboutTitle" name="aboutTitle" type="text" /></div>
+            <div class="form-field full"><label for="aboutText">About Text</label><textarea id="aboutText" name="aboutText"></textarea></div>
+          </div><div class="form-actions"><button class="btn primary" type="submit">Save About</button></div></form>
+        </section><div id="statusMessage" aria-live="polite"></div>
+      </main>
+    </div></div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/js/supabase-config.js"></script><script src="assets/js/supabase-client.js"></script><script src="assets/js/admin.js"></script>
+  </body>
+</html>

@@ -474,7 +474,7 @@ function handleLogin() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const isLoginPage = !!document.getElementById('loginForm');
-  const isAdminDashboardPage = !!document.getElementById('profileForm');
+  const isAdminPage = document.body.hasAttribute('data-admin-page');
 
   if (isLoginPage) {
     const hasRemoteSession = window.mntsSupabase && window.mntsSupabase.enabled
@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  if (isAdminDashboardPage) {
+  if (isAdminPage) {
     initializeAdminDashboard();
   }
 });
