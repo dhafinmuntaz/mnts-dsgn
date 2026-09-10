@@ -22,7 +22,18 @@
     async commitContentToGitHub() {
       if (!client) throw new Error('Supabase is not configured.');
       const { data, error } = await client.functions.invoke('commit-content');
-      if (error) throw error;
+      if (error) {
+        let detail = error.message;
+        if (error.context && typeof error.context.json === 'function') {
+          try {
+            const body = await error.context.json();
+            if (body.error) detail = body.error;
+          } catch (parseError) {
+            // Keep the SDK message when the function response is not JSON.
+          }
+        }
+        throw new Error(detail);
+      }
       return data;
     },
     async getSiteContent() {

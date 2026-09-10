@@ -30,7 +30,7 @@ Deno.serve(async (request) => {
   const token = Deno.env.get('GITHUB_TOKEN');
   const branch = Deno.env.get('GITHUB_BRANCH') || 'main';
   const filePath = Deno.env.get('GITHUB_FILE_PATH') || 'content-export.json';
-  if (!owner || !repo || !token) return json({ error: 'GitHub secrets are not configured.' }, 500);
+  if (!owner || !repo || !token) return json({ error: 'GitHub secrets are not configured. Add GITHUB_OWNER, GITHUB_REPO, and GITHUB_TOKEN to the Edge Function secrets.' }, 500);
 
   const [contentResult, pagesResult, projectsResult] = await Promise.all([
     supabase.from('site_content').select('content,updated_at').eq('id', 'main').maybeSingle(),
@@ -58,7 +58,7 @@ Deno.serve(async (request) => {
   let sha: string | undefined;
   const existing = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, { headers });
   if (existing.ok) sha = (await existing.json()).sha;
-  else if (existing.status !== 404) return json({ error: 'Could not read the GitHub file.' }, 502);
+  else if (existing.status !== 404) return json({ error: `Could not read the GitHub file. GitHub returned HTTP ${existing.status}. Check the token repository and Contents permission.` }, 502);
 
   const update = await fetch(apiUrl, {
     method: 'PUT',
@@ -70,7 +70,7 @@ Deno.serve(async (request) => {
       ...(sha ? { sha } : {})
     })
   });
-  if (!update.ok) return json({ error: 'GitHub rejected the commit.' }, 502);
+  if (!update.ok) return json({ error: `GitHub rejected the commit with HTTP ${update.status}. Check that the fine-grained token has Contents: Read and write access to ${owner}/${repo}.` }, 502);
   const result = await update.json();
   return json({ message: 'Content committed to GitHub successfully.', url: result.commit?.html_url || null });
 });

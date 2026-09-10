@@ -7,9 +7,6 @@ const defaultSiteContent = {
   heroTitle: '#MaterialityInMotion',
   heroButton: 'Discover Our Work',
   heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000',
-  featuredLocation: 'Bandung, West Java',
-  featuredTitle: 'Saninten airbnb',
-  featuredImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920',
   aboutTitle: 'Designing spaces that feel natural, intentional, and alive.',
   aboutText: 'We shape architectural and interior experiences around the relationship between people, nature, and atmosphere. Every project is approached with clarity, warmth, and a deep respect for the land and the lived experience of the space.',
   insightTitle: 'Thoughtful stories and design insight from our practice.',
@@ -111,9 +108,6 @@ async function renderProfileForm() {
   form.heroTitle.value = content.heroTitle || defaultSiteContent.heroTitle;
   form.heroButton.value = content.heroButton || defaultSiteContent.heroButton;
   form.heroImage.value = content.heroImage || defaultSiteContent.heroImage;
-  form.featuredTitle.value = content.featuredTitle || defaultSiteContent.featuredTitle;
-  form.featuredLocation.value = content.featuredLocation || defaultSiteContent.featuredLocation;
-  form.featuredImage.value = content.featuredImage || defaultSiteContent.featuredImage;
   form.contactPhone.value = content.contactPhone || defaultSiteContent.contactPhone;
   form.contactAddress.value = content.contactAddress || defaultSiteContent.contactAddress;
   form.contactEmail.value = content.contactEmail || defaultSiteContent.contactEmail;
@@ -289,9 +283,6 @@ async function initializeAdminDashboard() {
       content.contactPhone = profileForm.contactPhone.value.trim() || defaultSiteContent.contactPhone;
       content.contactAddress = profileForm.contactAddress.value.trim() || defaultSiteContent.contactAddress;
       content.contactEmail = profileForm.contactEmail.value.trim() || defaultSiteContent.contactEmail;
-      content.featuredTitle = profileForm.featuredTitle.value.trim() || defaultSiteContent.featuredTitle;
-      content.featuredLocation = profileForm.featuredLocation.value.trim() || defaultSiteContent.featuredLocation;
-      content.featuredImage = profileForm.featuredImage.value.trim() || defaultSiteContent.featuredImage;
 
       try {
         await saveContent(content);

@@ -225,6 +225,115 @@ section {
   text-transform: uppercase;
 }
 
+.carousel-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.carousel-button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(18, 20, 23, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.featured-carousel {
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.featured-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(310px, 46%);
+  gap: 20px;
+  overflow-x: auto;
+  padding: 4px 4px 14px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  touch-action: pan-x;
+}
+
+.featured-track::-webkit-scrollbar {
+  height: 10px;
+}
+
+.featured-track::-webkit-scrollbar-thumb {
+  background: rgba(18, 20, 23, 0.22);
+  border-radius: 999px;
+}
+
+.featured-project-card {
+  scroll-snap-align: start;
+  overflow: hidden;
+  min-height: 480px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(16px);
+}
+
+.featured-project-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.featured-project-copy {
+  padding: 20px;
+}
+
+.featured-project-copy span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.featured-project-copy h3 {
+  margin-bottom: 10px;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  letter-spacing: -0.05em;
+}
+
+.featured-project-copy p {
+  min-height: 52px;
+  margin-bottom: 18px;
+  color: var(--muted);
+}
+
+.featured-project-copy a {
+  font-size: 0.72rem;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(18, 20, 23, 0.34);
+  padding-bottom: 4px;
+}
+
+.featured-project-card.empty {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 24px;
+}
+
 .project-scroll {
   display: grid;
   grid-auto-flow: column;
@@ -546,6 +655,10 @@ footer {
   .section-header-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .featured-track {
+    grid-auto-columns: minmax(280px, 86%);
   }
 
   .project-scroll {

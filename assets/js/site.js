@@ -4,9 +4,6 @@ const defaultSiteContent = {
   heroTitle: '#MaterialityInMotion',
   heroButton: 'Discover Our Work',
   heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000',
-  featuredLocation: 'Bandung, West Java',
-  featuredTitle: 'Saninten airbnb',
-  featuredImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1920',
   aboutTitle: 'Designing spaces that feel natural, intentional, and alive.',
   aboutText: 'We shape architectural and interior experiences around the relationship between people, nature, and atmosphere. Every project is approached with clarity, warmth, and a deep respect for the land and the lived experience of the space.',
   insightTitle: 'Thoughtful stories and design insight from our practice.',
@@ -46,7 +43,6 @@ async function getStoredContent() {
 async function populateSite() {
   const content = await getStoredContent();
   const projects = await getProjectData();
-  const featuredProject = projects[0] || {};
 
   document.title = `${content.siteName} | Design for Human & Space`;
   const siteNameNodes = document.querySelectorAll('[data-site-name]');
@@ -64,15 +60,7 @@ async function populateSite() {
   if (heroButton) heroButton.innerHTML = `${content.heroButton} <span>→</span>`;
   if (heroImage) heroImage.src = content.heroImage || defaultSiteContent.heroImage;
 
-  const featuredLocation = document.querySelector('[data-featured-location]');
-  const featuredTitle = document.querySelector('[data-featured-title]');
-  const featuredImage = document.querySelector('[data-featured-image]');
-  const featuredLink = document.querySelector('[data-featured-link]');
-
-  if (featuredLocation) featuredLocation.textContent = content.featuredLocation;
-  if (featuredTitle) featuredTitle.textContent = content.featuredTitle;
-  if (featuredImage) featuredImage.src = content.featuredImage || defaultSiteContent.featuredImage;
-  if (featuredLink && featuredProject.id) featuredLink.href = `project-page.html?id=${featuredProject.id}`;
+  renderFeaturedProjects(projects);
 
   const aboutTitle = document.querySelector('[data-about-title]');
   const aboutText = document.querySelector('[data-about-text]');
@@ -115,14 +103,42 @@ async function populateSite() {
     `).join('');
   }
 
-  renderAllProjects();
+  renderAllProjects(projects);
 }
 
-async function renderAllProjects() {
+function renderFeaturedProjects(projects) {
+  const track = document.querySelector('[data-featured-track]');
+  if (!track) return;
+
+  const selected = [...projects].sort(() => Math.random() - 0.5).slice(0, 4);
+  if (!selected.length) {
+    track.innerHTML = '<article class="featured-project-card empty"><p>No featured projects available.</p></article>';
+    return;
+  }
+
+  track.innerHTML = selected.map((project) => `
+    <article class="featured-project-card">
+      <img src="${project.image || 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&q=80&w=1200'}" alt="${project.title}" />
+      <div class="featured-project-copy">
+        <span>${project.location || 'Studio Project'}</span>
+        <h3>${project.title}</h3>
+        <p>${project.description || ''}</p>
+        <a href="project-page.html?id=${project.id}">View project <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  `).join('');
+
+  const trackCard = track.querySelector('.featured-project-card');
+  const step = trackCard ? trackCard.offsetWidth + 20 : 320;
+  const previous = document.querySelector('[data-featured-prev]');
+  const next = document.querySelector('[data-featured-next]');
+  if (previous) previous.onclick = () => track.scrollBy({ left: -step, behavior: 'smooth' });
+  if (next) next.onclick = () => track.scrollBy({ left: step, behavior: 'smooth' });
+}
+
+async function renderAllProjects(projects) {
   const list = document.querySelector('[data-project-list]');
   if (!list) return;
-
-  const projects = await getProjectData();
 
   if (!projects.length) {
     list.innerHTML = `
