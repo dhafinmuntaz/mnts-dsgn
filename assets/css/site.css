@@ -23,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -109,7 +110,7 @@ header.navbar {
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   place-items: center;
   padding: 110px 20px 60px;
@@ -185,6 +186,7 @@ header.navbar {
 
 section {
   padding: 110px 0;
+  scroll-snap-align: start;
 }
 
 .section-tag {
@@ -197,7 +199,27 @@ section {
 }
 
 .featured-project {
-  background: transparent;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 104px 0 42px;
+  background: #10151b;
+  color: #fff;
+}
+
+.featured-project .section-tag,
+.featured-project .section-heading {
+  color: #fff;
+}
+
+.featured-project .section-heading {
+  max-width: 560px;
+}
+
+.featured-project .carousel-button {
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
 }
 
 .all-projects {
@@ -259,7 +281,7 @@ section {
 .featured-track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(310px, 46%);
+  grid-auto-columns: 100%;
   gap: 20px;
   overflow-x: auto;
   padding: 4px 4px 14px;
@@ -278,30 +300,43 @@ section {
 }
 
 .featured-project-card {
+  position: relative;
   scroll-snap-align: start;
   overflow: hidden;
-  min-height: 480px;
+  min-height: min(68svh, 720px);
   border: 1px solid rgba(255, 255, 255, 0.62);
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(16px);
+  background: #151b21;
+  box-shadow: var(--shadow);
 }
 
 .featured-project-card img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 300px;
+  height: 100%;
   object-fit: cover;
+  filter: brightness(0.62) saturate(0.92);
 }
 
 .featured-project-copy {
-  padding: 20px;
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  left: 24px;
+  z-index: 1;
+  max-width: 700px;
+  padding: 24px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 22px;
+  background: rgba(10, 14, 20, 0.38);
+  backdrop-filter: blur(18px) saturate(1.1);
 }
 
 .featured-project-copy span {
   display: block;
   margin-bottom: 10px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.72rem;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
@@ -311,19 +346,21 @@ section {
   margin-bottom: 10px;
   font-size: clamp(1.7rem, 3vw, 2.5rem);
   letter-spacing: -0.05em;
+  color: #fff;
 }
 
 .featured-project-copy p {
   min-height: 52px;
   margin-bottom: 18px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .featured-project-copy a {
   font-size: 0.72rem;
   letter-spacing: 0.12rem;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(18, 20, 23, 0.34);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   padding-bottom: 4px;
 }
 
@@ -659,6 +696,10 @@ footer {
 
   .featured-track {
     grid-auto-columns: minmax(280px, 86%);
+  }
+
+  .featured-track {
+    grid-auto-columns: 100%;
   }
 
   .project-scroll {
