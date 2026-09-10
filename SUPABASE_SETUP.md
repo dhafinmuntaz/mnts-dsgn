@@ -9,6 +9,16 @@ This project is a static site, so GitHub Pages can host the frontend while Supab
 3. Open **Authentication > Users** and create the admin accounts. Do not store passwords in this repository.
 4. Copy the project URL and the browser-safe `anon` key from **Project Settings > API**.
 
+## Admin and other accounts
+
+Create accounts from **Authentication > Users > Add user**. Use an email and password for each person, for example:
+
+- owner account: full access to the dashboard
+- editor account: content editing account
+- project account: project/page management account
+
+The current database policies allow every authenticated account to edit all content. This is suitable for a small private team. Do not create accounts by putting passwords in JavaScript. For different permissions, add roles and stricter RLS policies before sharing the dashboard widely.
+
 The `service_role` key must never be added to browser code, GitHub, or this repository.
 
 ## 2. GitHub Pages
@@ -26,6 +36,14 @@ The current prototype still uses localStorage so it remains usable offline. The 
 - pages: `pages`
 - projects: `projects`
 - images: a Supabase Storage bucket with authenticated upload policies
+
+The dashboard currently manages these database-backed areas:
+
+- Profile: site name, hero, featured project, and contact details
+- About: title and description
+- Homepage Sections: insights, career, and services
+- Pages: create and delete pages
+- Projects: create, edit, open, and delete project pages
 
 After running the SQL, open the hosted admin dashboard. Its status message should say `Supabase connected and database tables are available.`
 

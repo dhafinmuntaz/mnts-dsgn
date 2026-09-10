@@ -92,10 +92,12 @@ async function populateSite() {
   const featuredLocation = document.querySelector('[data-featured-location]');
   const featuredTitle = document.querySelector('[data-featured-title]');
   const featuredImage = document.querySelector('[data-featured-image]');
+  const featuredLink = document.querySelector('[data-featured-link]');
 
   if (featuredLocation) featuredLocation.textContent = content.featuredLocation;
   if (featuredTitle) featuredTitle.textContent = content.featuredTitle;
   if (featuredImage) featuredImage.src = content.featuredImage || defaultSiteContent.featuredImage;
+  if (featuredLink && featuredProject.id) featuredLink.href = `project-page.html?id=${featuredProject.id}`;
 
   const aboutTitle = document.querySelector('[data-about-title]');
   const aboutText = document.querySelector('[data-about-text]');
@@ -125,6 +127,7 @@ async function populateSite() {
   if (contactPhone) contactPhone.textContent = content.contactPhone;
   if (contactAddress) contactAddress.textContent = content.contactAddress;
   if (contactEmail) contactEmail.textContent = content.contactEmail;
+  if (contactEmail) contactEmail.href = `mailto:${content.contactEmail}`;
 
   const serviceGrid = document.querySelector('[data-services-grid]');
   if (serviceGrid && Array.isArray(content.services)) {

@@ -126,6 +126,9 @@ async function renderProfileForm() {
   form.heroSubtitle.value = content.heroSubtitle || defaultSiteContent.heroSubtitle;
   form.heroTitle.value = content.heroTitle || defaultSiteContent.heroTitle;
   form.heroButton.value = content.heroButton || defaultSiteContent.heroButton;
+  form.featuredTitle.value = content.featuredTitle || defaultSiteContent.featuredTitle;
+  form.featuredLocation.value = content.featuredLocation || defaultSiteContent.featuredLocation;
+  form.featuredImage.value = content.featuredImage || defaultSiteContent.featuredImage;
   form.contactPhone.value = content.contactPhone || defaultSiteContent.contactPhone;
   form.contactAddress.value = content.contactAddress || defaultSiteContent.contactAddress;
   form.contactEmail.value = content.contactEmail || defaultSiteContent.contactEmail;
@@ -159,6 +162,30 @@ async function renderAboutForm() {
 
   form.aboutTitle.value = content.aboutTitle || defaultSiteContent.aboutTitle;
   form.aboutText.value = content.aboutText || defaultSiteContent.aboutText;
+}
+
+async function renderSectionsForm() {
+  const content = await readStoredContent();
+  const form = document.getElementById('sectionsForm');
+  if (!form) return;
+
+  const insights = content.insightList || defaultSiteContent.insightList;
+  const services = content.services || defaultSiteContent.services;
+  form.insightTitle.value = content.insightTitle || defaultSiteContent.insightTitle;
+  form.insightOneLabel.value = insights[0]?.label || '';
+  form.insightOneText.value = insights[0]?.text || '';
+  form.insightTwoLabel.value = insights[1]?.label || '';
+  form.insightTwoText.value = insights[1]?.text || '';
+  form.insightThreeLabel.value = insights[2]?.label || '';
+  form.insightThreeText.value = insights[2]?.text || '';
+  form.careerTitle.value = content.careerTitle || defaultSiteContent.careerTitle;
+  form.careerText.value = content.careerText || defaultSiteContent.careerText;
+  form.serviceOneName.value = services[0]?.name || '';
+  form.serviceOneCount.value = services[0]?.count || '';
+  form.serviceTwoName.value = services[1]?.name || '';
+  form.serviceTwoCount.value = services[1]?.count || '';
+  form.serviceThreeName.value = services[2]?.name || '';
+  form.serviceThreeCount.value = services[2]?.count || '';
 }
 
 async function renderPagesList() {
@@ -208,6 +235,7 @@ async function renderProjectsList() {
       </div>
       <div class="project-item-actions">
         <a class="btn secondary small" href="project-page.html?id=${project.id}" target="_blank" rel="noreferrer">Open</a>
+        <button class="btn secondary small" data-project-edit="${project.id}" type="button">Edit</button>
         <button class="btn secondary small" data-project-delete="${project.id}" type="button">Delete</button>
       </div>
     </li>
@@ -226,6 +254,21 @@ async function renderProjectsList() {
       }
     });
   });
+
+  list.querySelectorAll('[data-project-edit]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const project = (await readProjects()).find((item) => item.id === button.dataset.projectEdit);
+      if (!project) return;
+      const form = document.getElementById('projectForm');
+      form.projectId.value = project.id;
+      form.projectTitle.value = project.title;
+      form.projectLocation.value = project.location;
+      form.projectDescription.value = project.description;
+      form.projectImage.value = project.image || '';
+      document.getElementById('projectSubmit').textContent = 'Update Project';
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
 }
 
 async function initializeAdminDashboard() {
@@ -239,6 +282,7 @@ async function initializeAdminDashboard() {
 
   await renderProfileForm();
   await renderAboutForm();
+  await renderSectionsForm();
   await renderPagesList();
   await renderProjectsList();
   attachImagePreview('heroUpload', 'heroPreview');
@@ -260,6 +304,9 @@ async function initializeAdminDashboard() {
       content.contactPhone = profileForm.contactPhone.value.trim() || defaultSiteContent.contactPhone;
       content.contactAddress = profileForm.contactAddress.value.trim() || defaultSiteContent.contactAddress;
       content.contactEmail = profileForm.contactEmail.value.trim() || defaultSiteContent.contactEmail;
+      content.featuredTitle = profileForm.featuredTitle.value.trim() || defaultSiteContent.featuredTitle;
+      content.featuredLocation = profileForm.featuredLocation.value.trim() || defaultSiteContent.featuredLocation;
+      content.featuredImage = profileForm.featuredImage.value.trim() || defaultSiteContent.featuredImage;
 
       if (document.getElementById('heroPreview') && document.getElementById('heroPreview').src) {
         content.heroImage = document.getElementById('heroPreview').src;
@@ -270,6 +317,33 @@ async function initializeAdminDashboard() {
         setStatus('Profile updated successfully.');
       } catch (error) {
         setStatus(`Profile update failed: ${error.message}`, true);
+      }
+    });
+  }
+
+  const sectionsForm = document.getElementById('sectionsForm');
+  if (sectionsForm) {
+    sectionsForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const content = await readStoredContent();
+      content.insightTitle = sectionsForm.insightTitle.value.trim() || defaultSiteContent.insightTitle;
+      content.insightList = [
+        { label: sectionsForm.insightOneLabel.value.trim(), text: sectionsForm.insightOneText.value.trim() },
+        { label: sectionsForm.insightTwoLabel.value.trim(), text: sectionsForm.insightTwoText.value.trim() },
+        { label: sectionsForm.insightThreeLabel.value.trim(), text: sectionsForm.insightThreeText.value.trim() }
+      ];
+      content.careerTitle = sectionsForm.careerTitle.value.trim() || defaultSiteContent.careerTitle;
+      content.careerText = sectionsForm.careerText.value.trim() || defaultSiteContent.careerText;
+      content.services = [
+        { name: sectionsForm.serviceOneName.value.trim(), count: sectionsForm.serviceOneCount.value.trim() },
+        { name: sectionsForm.serviceTwoName.value.trim(), count: sectionsForm.serviceTwoCount.value.trim() },
+        { name: sectionsForm.serviceThreeName.value.trim(), count: sectionsForm.serviceThreeCount.value.trim() }
+      ];
+      try {
+        await saveContent(content);
+        setStatus('Homepage sections updated successfully.');
+      } catch (error) {
+        setStatus(`Homepage update failed: ${error.message}`, true);
       }
     });
   }
@@ -330,6 +404,7 @@ async function initializeAdminDashboard() {
       const location = projectForm.projectLocation.value.trim();
       const description = projectForm.projectDescription.value.trim();
       const image = projectForm.projectImage.value.trim();
+      const projectId = projectForm.projectId.value.trim();
 
       if (!title || !location || !description) {
         setStatus('Title, location, and description are required.', true);
@@ -338,23 +413,26 @@ async function initializeAdminDashboard() {
 
       const projects = await readProjects();
       const project = {
-        id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `project-${Date.now()}`,
+        id: projectId || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `project-${Date.now()}`,
         title,
         location,
         description,
         image: image || 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&q=80&w=1200'
       };
 
-      projects.unshift(project);
+      const nextProjects = projectId
+        ? projects.map((item) => item.id === projectId ? project : item)
+        : [project, ...projects];
       try {
-        await saveProjects(projects);
+        await saveProjects(nextProjects);
       } catch (error) {
         setStatus(`Project creation failed: ${error.message}`, true);
         return;
       }
       projectForm.reset();
+      document.getElementById('projectSubmit').textContent = 'Create Project Page';
       await renderProjectsList();
-      setStatus('Project created successfully.');
+      setStatus(projectId ? 'Project updated successfully.' : 'Project created successfully.');
     });
   }
 

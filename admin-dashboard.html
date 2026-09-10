@@ -49,6 +49,21 @@
                   <input id="heroTitle" name="heroTitle" type="text" />
                 </div>
 
+                <div class="form-field">
+                  <label for="featuredTitle">Featured Project Title</label>
+                  <input id="featuredTitle" name="featuredTitle" type="text" />
+                </div>
+
+                <div class="form-field">
+                  <label for="featuredLocation">Featured Project Location</label>
+                  <input id="featuredLocation" name="featuredLocation" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="featuredImage">Featured Project Image URL</label>
+                  <input id="featuredImage" name="featuredImage" type="url" />
+                </div>
+
                 <div class="form-field full">
                   <label for="heroUpload">Hero Image</label>
                   <input id="heroUpload" name="heroUpload" type="file" accept="image/*" />
@@ -101,6 +116,81 @@
           </section>
 
           <section class="admin-section">
+            <h2>Homepage Sections</h2>
+            <form id="sectionsForm">
+              <div class="form-grid">
+                <div class="form-field full">
+                  <label for="insightTitle">Insights Title</label>
+                  <input id="insightTitle" name="insightTitle" type="text" />
+                </div>
+
+                <div class="form-field">
+                  <label for="insightOneLabel">Insight 1 Label</label>
+                  <input id="insightOneLabel" name="insightOneLabel" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="insightOneText">Insight 1 Text</label>
+                  <input id="insightOneText" name="insightOneText" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="insightTwoLabel">Insight 2 Label</label>
+                  <input id="insightTwoLabel" name="insightTwoLabel" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="insightTwoText">Insight 2 Text</label>
+                  <input id="insightTwoText" name="insightTwoText" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="insightThreeLabel">Insight 3 Label</label>
+                  <input id="insightThreeLabel" name="insightThreeLabel" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="insightThreeText">Insight 3 Text</label>
+                  <input id="insightThreeText" name="insightThreeText" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="careerTitle">Career Title</label>
+                  <input id="careerTitle" name="careerTitle" type="text" />
+                </div>
+                <div class="form-field full">
+                  <label for="careerText">Career Text</label>
+                  <textarea id="careerText" name="careerText"></textarea>
+                </div>
+
+                <div class="form-field">
+                  <label for="serviceOneName">Service 1 Name</label>
+                  <input id="serviceOneName" name="serviceOneName" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="serviceOneCount">Service 1 Count</label>
+                  <input id="serviceOneCount" name="serviceOneCount" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="serviceTwoName">Service 2 Name</label>
+                  <input id="serviceTwoName" name="serviceTwoName" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="serviceTwoCount">Service 2 Count</label>
+                  <input id="serviceTwoCount" name="serviceTwoCount" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="serviceThreeName">Service 3 Name</label>
+                  <input id="serviceThreeName" name="serviceThreeName" type="text" />
+                </div>
+                <div class="form-field">
+                  <label for="serviceThreeCount">Service 3 Count</label>
+                  <input id="serviceThreeCount" name="serviceThreeCount" type="text" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Save Homepage Sections</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-section">
             <h2>Pages</h2>
             <form id="pageForm">
               <div class="form-grid">
@@ -126,6 +216,7 @@
           <section class="admin-section">
             <h2>Projects</h2>
             <form id="projectForm">
+              <input id="projectId" name="projectId" type="hidden" />
               <div class="form-grid">
                 <div class="form-field">
                   <label for="projectTitle">Project Title</label>
@@ -149,7 +240,7 @@
               </div>
 
               <div class="form-actions">
-                <button class="btn primary" type="submit">Create Project Page</button>
+                <button class="btn primary" id="projectSubmit" type="submit">Create Project Page</button>
               </div>
             </form>
 
