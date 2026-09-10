@@ -388,7 +388,63 @@ small {
   transition: opacity 0.22s ease;
 }
 
+.admin-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px) saturate(1.2);
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.admin-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.admin-toast.error {
+  border-color: rgba(141, 61, 68, 0.32);
+  color: var(--danger);
+}
+
+.admin-toast-icon {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.admin-toast.error .admin-toast-icon {
+  background: var(--danger);
+}
+
 @media (max-width: 760px) {
+  .admin-toast {
+    top: 14px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+
   .admin-page-grid {
     grid-template-columns: 1fr;
   }

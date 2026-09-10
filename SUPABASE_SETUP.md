@@ -65,6 +65,20 @@ GITHUB_TOKEN=your-fine-grained-token
 
 The GitHub token must be created with fine-grained access limited to this repository and **Contents: Read and write** only. Never put this token in `supabase-config.js` or frontend code.
 
+### Configure the secrets
+
+From the project folder, run:
+
+```powershell
+npx supabase login
+npx supabase link --project-ref mtzkjlgbskocooqlajdj
+npx supabase functions deploy commit-content
+npx supabase secrets set GITHUB_OWNER=dhafinmuntaz GITHUB_REPO=mnts-dsgn GITHUB_BRANCH=main
+npx supabase secrets set GITHUB_TOKEN=YOUR_FINE_GRAINED_GITHUB_TOKEN
+```
+
+The token is entered only into the terminal and stored by Supabase. Do not paste it into chat, JavaScript, or GitHub files. After deployment, reload the admin dashboard and press **Commit to GitHub**. The popup will show the success or the exact backend error.
+
 After running the SQL, open the hosted admin login. The dashboard status should say `Supabase connected and database tables are available.`
 
 Do not publish the site as production CMS until the Supabase URL and anon key are configured and the RLS policies have been tested.

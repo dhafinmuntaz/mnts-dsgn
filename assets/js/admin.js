@@ -88,14 +88,26 @@ async function saveProjects(data) {
 
 function setStatus(message, isError = false) {
   const statusNode = document.getElementById('statusMessage');
-  if (!statusNode) return;
-  statusNode.textContent = message;
-  statusNode.style.color = isError ? '#9a3f3f' : '#355c42';
-  statusNode.style.opacity = '1';
-  clearTimeout(statusNode._successTimer);
-  statusNode._successTimer = setTimeout(() => {
-    statusNode.style.opacity = '0.75';
-  }, 2600);
+  if (statusNode) {
+    statusNode.textContent = message;
+    statusNode.style.color = isError ? '#9a3f3f' : '#355c42';
+    statusNode.style.opacity = '1';
+  }
+
+  let toast = document.getElementById('adminToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'adminToast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+  }
+
+  toast.className = `admin-toast ${isError ? 'error' : 'success'}`;
+  toast.innerHTML = `<span class="admin-toast-icon">${isError ? '!' : '✓'}</span><span>${message}</span>`;
+  requestAnimationFrame(() => toast.classList.add('visible'));
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => toast.classList.remove('visible'), 4200);
 }
 
 async function renderProfileForm() {
