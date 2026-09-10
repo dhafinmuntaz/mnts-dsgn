@@ -176,16 +176,6 @@ async function renderSectionsForm() {
   form.serviceThreeCount.value = services[2]?.count || '';
 }
 
-async function renderStudioFocusForm() {
-  const content = await readStoredContent();
-  const form = document.getElementById('studioFocusForm');
-  if (!form) return;
-
-  form.studioYears.value = content.studioYears || defaultSiteContent.studioYears;
-  form.projectCount.value = content.projectCount || defaultSiteContent.projectCount;
-  form.regionCount.value = content.regionCount || defaultSiteContent.regionCount;
-}
-
 async function renderPagesList() {
   const list = document.getElementById('pageList');
   if (!list) return;
@@ -281,7 +271,6 @@ async function initializeAdminDashboard() {
   await renderProfileForm();
   await renderAboutForm();
   await renderSectionsForm();
-  await renderStudioFocusForm();
   await renderPagesList();
   await renderProjectsList();
   if (window.mntsSupabase && window.mntsSupabase.enabled) {
@@ -346,24 +335,6 @@ async function initializeAdminDashboard() {
         setStatus('Profile updated successfully.');
       } catch (error) {
         setStatus(`Profile update failed: ${error.message}`, true);
-      }
-    });
-  }
-
-  const studioFocusForm = document.getElementById('studioFocusForm');
-  if (studioFocusForm) {
-    studioFocusForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const content = await readStoredContent();
-      content.studioYears = studioFocusForm.studioYears.value.trim() || defaultSiteContent.studioYears;
-      content.projectCount = studioFocusForm.projectCount.value.trim() || defaultSiteContent.projectCount;
-      content.regionCount = studioFocusForm.regionCount.value.trim() || defaultSiteContent.regionCount;
-
-      try {
-        await saveContent(content);
-        setStatus('Studio Focus updated successfully.');
-      } catch (error) {
-        setStatus(`Studio Focus update failed: ${error.message}`, true);
       }
     });
   }
