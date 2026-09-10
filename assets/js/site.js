@@ -20,6 +20,9 @@ const defaultSiteContent = {
   whatsappUrl: 'https://wa.me/62881022020380',
   instagramUrl: 'https://instagram.com/',
   linkedinUrl: 'https://linkedin.com/',
+  studioYears: '8+',
+  projectCount: '81',
+  regionCount: '12',
   services: [
     { name: 'Architecture', count: '21 Projects' },
     { name: 'Interior Design', count: '27 Projects' },
@@ -101,6 +104,13 @@ async function populateSite() {
   if (whatsappLink) whatsappLink.href = content.whatsappUrl;
   if (instagramLink) instagramLink.href = content.instagramUrl;
   if (linkedinLink) linkedinLink.href = content.linkedinUrl;
+
+  const studioYears = document.querySelector('[data-studio-years]');
+  const projectCount = document.querySelector('[data-project-count]');
+  const regionCount = document.querySelector('[data-region-count]');
+  if (studioYears) studioYears.textContent = content.studioYears;
+  if (projectCount) projectCount.textContent = content.projectCount;
+  if (regionCount) regionCount.textContent = content.regionCount;
 
   const serviceGrid = document.querySelector('[data-services-grid]');
   if (serviceGrid && Array.isArray(content.services)) {

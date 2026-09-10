@@ -23,6 +23,9 @@ const defaultSiteContent = {
   whatsappUrl: 'https://wa.me/62881022020380',
   instagramUrl: 'https://instagram.com/',
   linkedinUrl: 'https://linkedin.com/',
+  studioYears: '8+',
+  projectCount: '81',
+  regionCount: '12',
   services: [
     { name: 'Architecture', count: '21 Projects' },
     { name: 'Interior Design', count: '27 Projects' },
@@ -129,6 +132,9 @@ async function renderProfileForm() {
   form.whatsappUrl.value = content.whatsappUrl || defaultSiteContent.whatsappUrl;
   form.instagramUrl.value = content.instagramUrl || defaultSiteContent.instagramUrl;
   form.linkedinUrl.value = content.linkedinUrl || defaultSiteContent.linkedinUrl;
+  form.studioYears.value = content.studioYears || defaultSiteContent.studioYears;
+  form.projectCount.value = content.projectCount || defaultSiteContent.projectCount;
+  form.regionCount.value = content.regionCount || defaultSiteContent.regionCount;
 
   const heroPreview = document.getElementById('heroPreview');
   if (heroPreview) heroPreview.src = content.heroImage || defaultSiteContent.heroImage;
@@ -304,6 +310,9 @@ async function initializeAdminDashboard() {
       content.whatsappUrl = profileForm.whatsappUrl.value.trim() || defaultSiteContent.whatsappUrl;
       content.instagramUrl = profileForm.instagramUrl.value.trim() || defaultSiteContent.instagramUrl;
       content.linkedinUrl = profileForm.linkedinUrl.value.trim() || defaultSiteContent.linkedinUrl;
+      content.studioYears = profileForm.studioYears.value.trim() || defaultSiteContent.studioYears;
+      content.projectCount = profileForm.projectCount.value.trim() || defaultSiteContent.projectCount;
+      content.regionCount = profileForm.regionCount.value.trim() || defaultSiteContent.regionCount;
 
       try {
         await saveContent(content);
