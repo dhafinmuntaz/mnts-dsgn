@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login | MNTS DSGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <div class="login-wrap">
+        <div class="login-card">
+          <h2>Admin Login</h2>
+          <p class="subtle">Sign in to manage the website content.</p>
+
+          <form id="loginForm">
+            <div class="form-field full">
+              <label for="username">Username</label>
+              <input id="username" name="username" type="text" placeholder="admin" required />
+            </div>
+
+            <div class="form-field full">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" placeholder="admin" required />
+            </div>
+
+            <div class="form-actions">
+              <button class="btn primary" type="submit">Login</button>
+            </div>
+
+            <div id="statusMessage" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+  </body>
+</html>

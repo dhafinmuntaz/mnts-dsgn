@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | MNTS DSGN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell admin-shell-large">
+      <div class="admin-panel">
+        <header class="admin-header">
+          <div>
+            <p class="admin-kicker">Admin landing page</p>
+            <h1>Website Content Manager</h1>
+          </div>
+
+          <div class="admin-actions">
+            <a class="btn secondary" href="index.html" target="_blank" rel="noreferrer">Preview Site</a>
+            <button class="btn secondary" id="logoutBtn" type="button">Logout</button>
+          </div>
+        </header>
+
+        <div class="admin-body admin-body-large">
+          <section class="admin-section">
+            <h2>Profile</h2>
+            <form id="profileForm">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="siteName">Site Name</label>
+                  <input id="siteName" name="siteName" type="text" />
+                </div>
+
+                <div class="form-field">
+                  <label for="heroButton">Hero Button</label>
+                  <input id="heroButton" name="heroButton" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="heroSubtitle">Hero Subtitle</label>
+                  <input id="heroSubtitle" name="heroSubtitle" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="heroTitle">Hero Title</label>
+                  <input id="heroTitle" name="heroTitle" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="heroUpload">Hero Image</label>
+                  <input id="heroUpload" name="heroUpload" type="file" accept="image/*" />
+                  <div class="preview-box">
+                    <img id="heroPreview" src="" alt="Hero preview" />
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label for="contactPhone">Phone</label>
+                  <input id="contactPhone" name="contactPhone" type="text" />
+                </div>
+
+                <div class="form-field">
+                  <label for="contactEmail">Email</label>
+                  <input id="contactEmail" name="contactEmail" type="email" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="contactAddress">Address</label>
+                  <input id="contactAddress" name="contactAddress" type="text" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Save Profile</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-section">
+            <h2>About</h2>
+            <form id="aboutForm">
+              <div class="form-grid">
+                <div class="form-field full">
+                  <label for="aboutTitle">About Title</label>
+                  <input id="aboutTitle" name="aboutTitle" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="aboutText">About Text</label>
+                  <textarea id="aboutText" name="aboutText"></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Save About</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="admin-section">
+            <h2>Pages</h2>
+            <form id="pageForm">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="pageName">Page Name</label>
+                  <input id="pageName" name="pageName" type="text" placeholder="Projects" />
+                </div>
+
+                <div class="form-field">
+                  <label for="pageSlug">Page Slug</label>
+                  <input id="pageSlug" name="pageSlug" type="text" placeholder="projects" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Create Page</button>
+              </div>
+            </form>
+
+            <ul id="pageList" class="item-list"></ul>
+          </section>
+
+          <section class="admin-section">
+            <h2>Projects</h2>
+            <form id="projectForm">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="projectTitle">Project Title</label>
+                  <input id="projectTitle" name="projectTitle" type="text" />
+                </div>
+
+                <div class="form-field">
+                  <label for="projectLocation">Location</label>
+                  <input id="projectLocation" name="projectLocation" type="text" />
+                </div>
+
+                <div class="form-field full">
+                  <label for="projectDescription">Description</label>
+                  <textarea id="projectDescription" name="projectDescription"></textarea>
+                </div>
+
+                <div class="form-field full">
+                  <label for="projectImage">Project Image URL</label>
+                  <input id="projectImage" name="projectImage" type="url" placeholder="https://example.com/project.jpg" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Create Project Page</button>
+              </div>
+            </form>
+
+            <ul id="projectList" class="item-list project-list"></ul>
+          </section>
+
+          <div id="statusMessage" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+  </body>
+</html>
