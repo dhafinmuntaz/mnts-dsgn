@@ -5,6 +5,7 @@
 }
 
 :root {
+  font-size: 90%;
   --bg: #eef0f3;
   --bg-strong: #e7ebf0;
   --panel: rgba(255, 255, 255, 0.45);
