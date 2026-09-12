@@ -24,7 +24,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -990,6 +989,59 @@ footer {
   }
 }
 
+/* Editorial architecture layout */
+.hero::before, .hero::after { content: none; }
+.nav-links a::after { content: none; }
+.hero { min-height: 760px; }
+.hero-meta { position: absolute; z-index: 3; top: 118px; font: 0.72rem/1.65 'DM Sans', sans-serif; color: var(--muted); }
+.hero-meta-left { left: 32px; }
+.hero-meta-right { right: 32px; text-align: right; font: 500 clamp(1.8rem, 3vw, 3rem)/.95 'Space Grotesk', sans-serif; color: var(--text); }
+.hero-meta-right span { font: 0.72rem/1.65 'DM Sans', sans-serif; color: var(--muted); }
+.nav-contact { font-size: .8rem; font-weight: 700; }
+.nav-contact span, .nav-links a span, .text-link span { color: var(--accent); }
+.intro-section { background: var(--bg); border-top: 1px solid var(--line); }
+.intro-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 8vw; }
+.intro-grid h2 { max-width: 860px; margin-bottom: 22px; font: 500 clamp(2.5rem, 6vw, 6rem)/.91 'Space Grotesk', sans-serif; letter-spacing: -.07em; }
+.intro-grid p { max-width: 620px; color: var(--muted); font-size: 1.08rem; }
+.text-link { display: inline-flex; gap: 10px; margin-top: 38px; padding-bottom: 8px; border-bottom: 1px solid var(--text); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.featured-project { background: var(--dark); }
+.featured-project .section-heading { font-size: clamp(3rem, 8vw, 8rem); line-height: .84; letter-spacing: -.08em; }
+.featured-track { gap: 16px; }
+.featured-project-card { min-width: min(72vw, 760px); border: 0; border-radius: 0; background: transparent; }
+.featured-project-card img { height: min(58vh, 540px); filter: grayscale(.2); }
+.featured-project-copy { padding: 18px 0 0; background: transparent; }
+.featured-project-copy h3 { font: 500 clamp(1.5rem, 3vw, 2.7rem)/1 'Space Grotesk', sans-serif; }
+.featured-project-copy p { max-width: 520px; color: #aaa; }
+.all-projects { border-top: 1px solid var(--line); }
+.project-scroll-item { border-radius: 0; background: transparent; border-bottom: 1px solid var(--line); }
+.project-scroll-item img { width: 45%; aspect-ratio: 1.4; object-fit: cover; }
+.project-scroll-copy h3 { font: 500 clamp(1.8rem, 4vw, 4rem)/.95 'Space Grotesk', sans-serif; letter-spacing: -.06em; }
+.services { background: var(--bg-strong); }
+.services-grid { grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); }
+.service-item { border-radius: 0; border: 0; border-right: 1px solid var(--line); padding: 30px 22px 0 0; background: transparent; box-shadow: none; }
+.service-item:not(:first-child) { padding-left: 22px; }
+.service-visual { height: 260px; display: grid; place-items: end start; padding: 18px; background: #d8d8d3; color: #777; font: 500 clamp(1.6rem, 3vw, 3rem)/.9 'Space Grotesk', sans-serif; }
+.service-item h3 { margin-top: 18px; font-size: 1rem; }
+.service-item p { color: var(--muted); }
+.insights, .career, .contact { border-top: 1px solid var(--line); }
+.info-panel { border-radius: 0; background: transparent; border: 0; box-shadow: none; padding: 0; }
+.contents-list li { border-width: 0 0 1px; border-radius: 0; background: transparent; padding: 20px 0; }
+.contact { background: var(--dark); color: #fff; }
+.contact .section-tag, .contact-box p { color: #aaa; }
+.contact a { color: #fff; }
+footer { background: var(--dark); color: #fff; border-top: 1px solid #333; }
+
+@media (max-width: 760px) {
+  .nav-contact { display: none; }
+  .hero-meta-left { left: 18px; }
+  .hero-meta-right { right: 18px; }
+  .intro-grid { grid-template-columns: 1fr; gap: 24px; }
+  .featured-project-card { min-width: 86vw; }
+  .project-scroll-item img { width: 100%; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .service-item:nth-child(3) { border-top: 1px solid var(--line); }
+}
+
 
 /* Osvald-inspired editorial system */
 :root {
@@ -1277,4 +1329,13 @@ footer { background: #fff; color: var(--text); border-top: 1px solid var(--line)
   .contact-box:first-child .section-heading { font-size: clamp(3.3rem, 16vw, 6rem); }
   .footer-layout { grid-template-columns: 1fr; }
   .footer-brand { grid-column: auto; }
+}
+
+/* Keep the explicit metadata layer from colliding with the reference fallbacks. */
+.hero::before, .hero::after { content: none; }
+.nav-links a::after { content: none; }
+@media (max-width: 600px) {
+  .hero-meta-right { display: none; }
+  .hero-meta-left { top: 92px; font-size: .62rem; }
+  .hero-title { max-width: 100%; overflow-wrap: anywhere; font-size: clamp(3rem, 14vw, 5rem); }
 }

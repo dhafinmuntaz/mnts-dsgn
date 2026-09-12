@@ -13,15 +13,13 @@
     <header class="navbar">
       <div class="nav-inner">
         <a href="#top" class="logo" data-site-name>MNTS DSGN</a>
-
         <nav id="main-navigation" class="nav-links" aria-label="Main navigation">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#insights">Insights</a>
-          <a href="#career">Career</a>
-          <a href="#contact">Contact</a>
+          <a href="#about">About <span>↗</span></a>
+          <a href="#projects">Works <span>↗</span></a>
+          <a href="#services">Services <span>↗</span></a>
+          <a href="#contact">Contact <span>↗</span></a>
         </nav>
-
+        <a href="login/" class="nav-contact">Start a project <span>↗</span></a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">☰</button>
       </div>
     </header>
@@ -31,7 +29,8 @@
         <div class="hero-backdrop">
           <img data-hero-image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000" alt="Architecture within nature" />
         </div>
-
+        <div class="hero-meta hero-meta-left">Architecture Studio<br />Coord: &nbsp;6.9271° S<br />System: &nbsp;MNTS / 01<br />Scale: &nbsp;&nbsp;Human</div>
+        <div class="hero-meta hero-meta-right">Space.<br /><span>001 / MNTS DSGN</span></div>
         <div class="hero-content">
           <p class="eyebrow" data-hero-subtitle>Designing spaces with intention, rhythm, and clarity.</p>
           <h1 class="hero-title" data-hero-title>#MaterialityInMotion</h1>
@@ -39,12 +38,23 @@
         </div>
       </section>
 
+      <section id="about" class="about intro-section">
+        <div class="container intro-grid">
+          <div class="section-tag">Overview</div>
+          <div>
+            <h2 data-about-title>Designing spaces that feel natural, intentional, and alive.</h2>
+            <p data-about-text>We shape architectural and interior experiences around the relationship between people, nature, and atmosphere.</p>
+            <a href="#projects" class="text-link">Explore our work <span>↗</span></a>
+          </div>
+        </div>
+      </section>
+
       <section id="projects" class="featured-project">
         <div class="container">
           <div class="section-header-row">
             <div>
-              <div class="section-tag">Featured Projects</div>
-              <h2 class="section-heading">Four projects selected from the studio archive.</h2>
+              <div class="section-tag">Selected Projects</div>
+              <h2 class="section-heading">Built with intention.</h2>
             </div>
             <div class="carousel-controls" aria-label="Featured project controls">
               <button class="carousel-button" type="button" data-featured-prev aria-label="Previous featured projects">←</button>
@@ -72,7 +82,7 @@
         </div>
       </section>
 
-      <section class="services" aria-labelledby="services-title">
+      <section id="services" class="services" aria-labelledby="services-title">
         <div class="container">
           <div class="section-tag">Our Services</div>
           <h2 id="services-title" class="section-heading">Crafting spaces with intent.</h2>
@@ -93,34 +103,6 @@
               <h3>Garden Design</h3>
               <p>33 Projects</p>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" class="about">
-        <div class="container two-column">
-          <div class="text-block">
-            <div class="section-tag">About</div>
-            <h2 data-about-title>Designing spaces that feel natural, intentional, and alive.</h2>
-            <p data-about-text>We shape architectural and interior experiences around the relationship between people, nature, and atmosphere. Every project is approached with clarity, warmth, and a deep respect for the land and the lived experience of the space.</p>
-          </div>
-
-          <div class="info-panel">
-            <div class="section-tag">Studio Focus</div>
-            <div class="metrics">
-              <div class="metric-box">
-                <strong data-studio-years>8+</strong>
-                <span>Years</span>
-              </div>
-              <div class="metric-box">
-                <strong data-project-count>81</strong>
-                <span>Projects</span>
-              </div>
-              <div class="metric-box">
-                <strong data-region-count>12</strong>
-                <span>Regions</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>

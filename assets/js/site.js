@@ -231,22 +231,6 @@ function initMobileMenu() {
   });
 }
 
-function initHeroScroll() {
-  const hero = document.querySelector('.hero');
-  const featured = document.querySelector('#projects');
-  if (!hero || !featured) return;
-
-  if (window.matchMedia('(max-width: 900px)').matches) return;
-  let isMoving = false;
-  hero.addEventListener('wheel', (event) => {
-    if (event.deltaY <= 0 || isMoving) return;
-    event.preventDefault();
-    isMoving = true;
-    featured.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.setTimeout(() => { isMoving = false; }, 850);
-  }, { passive: false });
-}
-
 function initReveal() {
   const revealItems = document.querySelectorAll('section, .service-item, .info-panel, .contact-box, .project-scroll-item');
   const observer = new IntersectionObserver((entries) => {
@@ -282,7 +266,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (document.getElementById('projectDetailTitle')) await populateProjectDetail();
   initSmoothScroll();
   initMobileMenu();
-  initHeroScroll();
   initReveal();
   initImageParallax();
   window.addEventListener('storage', () => populateSite());
