@@ -14,12 +14,12 @@
       <div class="nav-inner">
         <a href="#top" class="logo" data-site-name>MNTS DSGN</a>
         <nav id="main-navigation" class="nav-links" aria-label="Main navigation">
-          <a href="#about">About <span>↗</span></a>
-          <a href="#projects">Works <span>↗</span></a>
-          <a href="#services">Services <span>↗</span></a>
-          <a href="#contact">Contact <span>↗</span></a>
+          <a href="#about" data-nav-about>About</a>
+          <a href="#projects" data-nav-works>Works</a>
+          <a href="#services" data-nav-services>Services</a>
+          <a href="#contact" data-nav-contact>Contact</a>
         </nav>
-        <a href="login/" class="nav-contact">Start a project <span>↗</span></a>
+        <a href="login/" class="nav-contact" data-nav-cta>Start a project</a>
         <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Use dark mode"><span aria-hidden="true">◐</span></button>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open menu">☰</button>
       </div>
@@ -30,12 +30,12 @@
         <div class="hero-backdrop">
           <img data-hero-image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000" alt="Architecture within nature" />
         </div>
-        <div class="hero-meta hero-meta-left">Architecture Studio<br />Coord: &nbsp;6.9271° S<br />System: &nbsp;MNTS / 01<br />Scale: &nbsp;&nbsp;Human</div>
-        <div class="hero-meta hero-meta-right">Space.<br /><span>001 / MNTS DSGN</span></div>
+        <div class="hero-meta hero-meta-left"><span data-hero-meta-studio>Architecture Studio</span><br />Coord: &nbsp;<span data-hero-meta-coord>6.9271° S</span><br />System: &nbsp;<span data-hero-meta-system>MNTS / 01</span><br />Scale: &nbsp;&nbsp;<span data-hero-meta-scale>Human</span></div>
+        <div class="hero-meta hero-meta-right"><span data-hero-meta-space>Space.</span><br /><span data-hero-meta-code>001 / MNTS DSGN</span></div>
         <div class="hero-content">
           <p class="eyebrow" data-hero-subtitle>Designing spaces with intention, rhythm, and clarity.</p>
           <h1 class="hero-title" data-hero-title>#MaterialityInMotion</h1>
-          <a href="#projects" class="hero-cta" data-hero-button>Discover Our Work <span>→</span></a>
+          <a href="#projects" class="hero-cta" data-hero-button>Discover Our Work</a>
         </div>
       </section>
 
@@ -43,12 +43,12 @@
         <div class="container">
           <div class="section-header-row">
             <div>
-              <div class="section-tag">Selected Projects</div>
-              <h2 class="section-heading">Built with intention.</h2>
+              <div class="section-tag" data-selected-label>Selected Projects</div>
+                <h2 class="section-heading" data-selected-title>Built with intention.</h2>
             </div>
             <div class="carousel-controls" aria-label="Featured project controls">
-              <button class="carousel-button" type="button" data-featured-prev aria-label="Previous featured projects">←</button>
-              <button class="carousel-button" type="button" data-featured-next aria-label="Next featured projects">→</button>
+              <button class="carousel-button" type="button" data-featured-prev aria-label="Previous featured projects">Prev</button>
+              <button class="carousel-button" type="button" data-featured-next aria-label="Next featured projects">Next</button>
             </div>
           </div>
 
@@ -62,10 +62,10 @@
         <div class="container">
           <div class="section-header-row">
             <div>
-              <div class="section-tag">All Projects</div>
-              <h2 class="section-heading">Selected work across architecture, interiors, and landscape.</h2>
+              <div class="section-tag" data-all-projects-label>All Projects</div>
+              <h2 class="section-heading" data-all-projects-title>Selected work across architecture, interiors, and landscape.</h2>
             </div>
-            <a href="#contact" class="inline-link">Start a project</a>
+            <a href="#contact" class="inline-link" data-all-projects-button>Start a project</a>
           </div>
 
           <div class="project-scroll" data-project-list aria-live="polite"></div>
@@ -74,8 +74,8 @@
 
       <section id="services" class="services" aria-labelledby="services-title">
         <div class="container">
-          <div class="section-tag">Our Services</div>
-          <h2 id="services-title" class="section-heading">Crafting spaces with intent.</h2>
+          <div class="section-tag" data-services-label>Our Services</div>
+          <h2 id="services-title" class="section-heading" data-services-title>Crafting spaces with intent.</h2>
 
           <div class="services-grid" data-services-grid>
             <article class="service-item">
@@ -100,7 +100,7 @@
       <section id="insights" class="insights">
         <div class="container two-column">
           <div class="text-block">
-            <div class="section-tag">Insights</div>
+            <div class="section-tag" data-insights-label>Insights</div>
             <h2 data-insight-title>Thoughtful stories and design insight from our practice.</h2>
           </div>
 
@@ -117,7 +117,7 @@
       <section id="career" class="career">
         <div class="container two-column">
           <div class="text-block">
-            <div class="section-tag">Career</div>
+            <div class="section-tag" data-career-label>Career</div>
             <h2 data-career-title>Join a studio that designs with care and composition.</h2>
           </div>
 
@@ -130,9 +130,9 @@
       <section id="contact" class="contact">
         <div class="container contact-layout">
           <div class="contact-box">
-            <div class="section-tag">Contact</div>
-            <h2 class="section-heading">Let’s build something meaningful.</h2>
-            <p>We work with hospitality, residential, cultural, and landscape-led projects across Indonesia and beyond.</p>
+            <div class="section-tag" data-contact-label>Contact</div>
+            <h2 class="section-heading" data-contact-title>Let’s build something meaningful.</h2>
+            <p data-contact-text>We work with hospitality, residential, cultural, and landscape-led projects across Indonesia and beyond.</p>
           </div>
 
           <div class="contact-box">
@@ -151,14 +151,14 @@
         </div>
 
         <div class="footer-links">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#insights">Insights</a>
+          <a href="#about" data-footer-about>About</a>
+          <a href="#projects" data-footer-projects>Projects</a>
+          <a href="#insights" data-footer-insights>Insights</a>
         </div>
 
         <div class="footer-links">
-          <a href="#career">Career</a>
-          <a href="#contact">Contact</a>
+          <a href="#career" data-footer-career>Career</a>
+          <a href="#contact" data-footer-contact>Contact</a>
           <a href="login/">Admin</a>
         </div>
 

@@ -4,6 +4,19 @@ const defaultSiteContent = {
   heroTitle: '#MaterialityInMotion',
   heroButton: 'Discover Our Work',
   heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000',
+  heroMetaStudio: 'Architecture Studio',
+  heroMetaCoord: '6.9271° S',
+  heroMetaSystem: 'MNTS / 01',
+  heroMetaScale: 'Human',
+  heroMetaSpace: 'Space.',
+  heroMetaCode: '001 / MNTS DSGN',
+  selectedLabel: 'Selected Projects',
+  selectedTitle: 'Built with intention.',
+  allProjectsLabel: 'All Projects',
+  allProjectsTitle: 'Selected work across architecture, interiors, and landscape.',
+  allProjectsButton: 'Start a project',
+  servicesLabel: 'Our Services',
+  servicesTitle: 'Crafting spaces with intent.',
   aboutTitle: 'Designing spaces that feel natural, intentional, and alive.',
   aboutText: 'We shape architectural and interior experiences around the relationship between people, nature, and atmosphere. Every project is approached with clarity, warmth, and a deep respect for the land and the lived experience of the space.',
   insightTitle: 'Thoughtful stories and design insight from our practice.',
@@ -14,6 +27,25 @@ const defaultSiteContent = {
   ],
   careerTitle: 'Join a studio that designs with care and composition.',
   careerText: 'We are growing our studio and looking for curious collaborators who value craftsmanship, spatial clarity, and a meaningful architectural process.',
+  contactLabel: 'Contact',
+  contactTitle: 'Let’s build something meaningful.',
+  contactText: 'We work with hospitality, residential, cultural, and landscape-led projects across Indonesia and beyond.',
+  footerAbout: 'About',
+  footerProjects: 'Projects',
+  footerInsights: 'Insights',
+  footerCareer: 'Career',
+  footerContact: 'Contact',
+  styleSettings: {
+    fontFamily: 'DM Sans',
+    headingFont: 'Space Grotesk',
+    baseFontSize: '16',
+    headingScale: '1',
+    sectionSpacing: '8',
+    accentColor: '#f36f3d',
+    backgroundColor: '#ffffff',
+    textColor: '#080808'
+  },
+  sectionOrder: ['projects', 'all-projects', 'services', 'insights', 'career', 'contact'],
   contactPhone: '+62 88102 2020 380',
   contactAddress: 'Jalan Pulolaut No 27, Bandung, West Java',
   contactEmail: 'hello@studioasa.co',
@@ -31,24 +63,45 @@ const defaultSiteContent = {
 };
 
 async function getProjectData() {
-  if (window.mntsSupabase && window.mntsSupabase.enabled) {
-    const remote = await window.mntsSupabase.getProjects();
-    return remote || [];
-  }
-  return [];
+  if (!window.mntsSupabase || !window.mntsSupabase.enabled) throw new Error('The live content database is not configured.');
+  return (await window.mntsSupabase.getProjects()) || [];
 }
 
 async function getStoredContent() {
-  if (window.mntsSupabase && window.mntsSupabase.enabled) {
-    const remote = await window.mntsSupabase.getSiteContent();
-    return { ...structuredClone(defaultSiteContent), ...(remote || {}) };
-  }
-  return structuredClone(defaultSiteContent);
+  if (!window.mntsSupabase || !window.mntsSupabase.enabled) throw new Error('The live content database is not configured.');
+  const remote = await window.mntsSupabase.getSiteContent();
+  if (!remote) throw new Error('No live site content is available in Supabase.');
+  return { ...structuredClone(defaultSiteContent), ...remote };
+}
+
+function showOnlineContentError(error) {
+  const message = document.createElement('main');
+  message.className = 'site-online-error';
+  message.innerHTML = `<p>Live content unavailable</p><h1>Connect to the content database to view this site.</h1><small>${error.message}</small>`;
+  document.body.replaceChildren(message);
 }
 
 async function populateSite() {
   const content = await getStoredContent();
   const projects = await getProjectData();
+
+  const settings = { ...defaultSiteContent.styleSettings, ...(content.styleSettings || {}) };
+  const root = document.documentElement;
+  root.style.setProperty('--site-font', `'${settings.fontFamily}', sans-serif`);
+  root.style.setProperty('--site-heading-font', `'${settings.headingFont}', sans-serif`);
+  root.style.setProperty('--site-base-size', `${settings.baseFontSize}px`);
+  root.style.setProperty('--site-heading-scale', settings.headingScale);
+  root.style.setProperty('--site-section-spacing', `${settings.sectionSpacing}vw`);
+  root.style.setProperty('--site-accent', settings.accentColor);
+  root.style.setProperty('--site-bg', settings.backgroundColor);
+  root.style.setProperty('--site-text', settings.textColor);
+
+  const main = document.querySelector('main');
+  const order = Array.isArray(content.sectionOrder) ? content.sectionOrder : defaultSiteContent.sectionOrder;
+  order.forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) main.appendChild(section);
+  });
 
   document.title = `${content.siteName} | Design for Human & Space`;
   const siteNameNodes = document.querySelectorAll('[data-site-name]');
@@ -63,8 +116,41 @@ async function populateSite() {
 
   if (heroSubtitle) heroSubtitle.textContent = content.heroSubtitle;
   if (heroTitle) heroTitle.textContent = content.heroTitle;
-  if (heroButton) heroButton.innerHTML = `${content.heroButton} <span>→</span>`;
+  if (heroButton) heroButton.textContent = content.heroButton;
   if (heroImage) heroImage.src = content.heroImage || defaultSiteContent.heroImage;
+
+  const textBindings = {
+    '[data-hero-meta-studio]': content.heroMetaStudio,
+    '[data-hero-meta-coord]': content.heroMetaCoord,
+    '[data-hero-meta-system]': content.heroMetaSystem,
+    '[data-hero-meta-scale]': content.heroMetaScale,
+    '[data-hero-meta-space]': content.heroMetaSpace,
+    '[data-hero-meta-code]': content.heroMetaCode,
+    '[data-selected-label]': content.selectedLabel,
+    '[data-selected-title]': content.selectedTitle,
+    '[data-all-projects-label]': content.allProjectsLabel,
+    '[data-all-projects-title]': content.allProjectsTitle,
+    '[data-all-projects-button]': content.allProjectsButton,
+    '[data-services-label]': content.servicesLabel,
+    '[data-services-title]': content.servicesTitle,
+    '[data-contact-label]': content.contactLabel,
+    '[data-contact-title]': content.contactTitle,
+    '[data-contact-text]': content.contactText,
+    '[data-footer-about]': content.footerAbout,
+    '[data-footer-projects]': content.footerProjects,
+    '[data-footer-insights]': content.footerInsights,
+    '[data-footer-career]': content.footerCareer,
+    '[data-footer-contact]': content.footerContact,
+    '[data-nav-about]': content.footerAbout,
+    '[data-nav-works]': content.footerProjects,
+    '[data-nav-services]': content.servicesLabel,
+    '[data-nav-contact]': content.footerContact,
+    '[data-nav-cta]': content.allProjectsButton
+  };
+  Object.entries(textBindings).forEach(([selector, value]) => {
+    const node = document.querySelector(selector);
+    if (node && value) node.textContent = value;
+  });
 
   renderFeaturedProjects(projects);
 
@@ -143,7 +229,7 @@ function renderFeaturedProjects(projects) {
         <span>${project.location || 'Studio Project'}</span>
         <h3>${project.title}</h3>
         <p>${project.description || ''}</p>
-        <a href="project-page.html?id=${project.id}">View project <span aria-hidden="true">→</span></a>
+        <a href="project-page.html?id=${project.id}">View project</a>
       </div>
     </article>
   `).join('');
@@ -336,16 +422,63 @@ function initSectionTitleFade() {
   updateTitles();
 }
 
+function initSectionScroll() {
+  const sections = [...document.querySelectorAll('main > section')];
+  const excludedSection = document.querySelector('#all-projects');
+  if (sections.length < 2 || !excludedSection || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let isAnimating = false;
+  let unlockTimer;
+
+  const isInsideExcludedSection = () => {
+    const bounds = excludedSection.getBoundingClientRect();
+    return bounds.top < window.innerHeight * 0.72 && bounds.bottom > 64;
+  };
+
+  const getCurrentIndex = () => {
+    const referencePoint = window.scrollY + (document.querySelector('.navbar')?.offsetHeight || 0) + 24;
+    let currentIndex = 0;
+    sections.forEach((section, index) => {
+      if (section.offsetTop <= referencePoint) currentIndex = index;
+    });
+    return currentIndex;
+  };
+
+  const handleWheel = (event) => {
+    if (isAnimating || Math.abs(event.deltaY) < 12 || isInsideExcludedSection()) return;
+
+    const currentIndex = getCurrentIndex();
+    const direction = event.deltaY > 0 ? 1 : -1;
+    const nextIndex = Math.min(Math.max(currentIndex + direction, 0), sections.length - 1);
+    if (nextIndex === currentIndex) return;
+
+    event.preventDefault();
+    isAnimating = true;
+    sections[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => {
+      isAnimating = false;
+    }, 1150);
+  };
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
-  await populateSite();
-  if (document.getElementById('projectDetailTitle')) await populateProjectDetail();
-  initSmoothScroll();
-  initMobileMenu();
-  initThemeToggle();
-  initReveal();
-  initImageParallax();
-  initHeroScrollMotion();
-  initSectionTitleFade();
-  window.addEventListener('storage', () => populateSite());
-  window.addEventListener('siteDataUpdated', () => populateSite());
+  try {
+    await populateSite();
+    if (document.getElementById('projectDetailTitle')) await populateProjectDetail();
+    initSmoothScroll();
+    initMobileMenu();
+    initThemeToggle();
+    initReveal();
+    initImageParallax();
+    initHeroScrollMotion();
+    initSectionTitleFade();
+    initSectionScroll();
+    window.addEventListener('storage', () => populateSite());
+    window.addEventListener('siteDataUpdated', () => populateSite());
+  } catch (error) {
+    showOnlineContentError(error);
+  }
 });

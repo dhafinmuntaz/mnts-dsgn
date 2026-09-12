@@ -7,6 +7,19 @@ const defaultSiteContent = {
   heroTitle: '#MaterialityInMotion',
   heroButton: 'Discover Our Work',
   heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000',
+  heroMetaStudio: 'Architecture Studio',
+  heroMetaCoord: '6.9271° S',
+  heroMetaSystem: 'MNTS / 01',
+  heroMetaScale: 'Human',
+  heroMetaSpace: 'Space.',
+  heroMetaCode: '001 / MNTS DSGN',
+  selectedLabel: 'Selected Projects',
+  selectedTitle: 'Built with intention.',
+  allProjectsLabel: 'All Projects',
+  allProjectsTitle: 'Selected work across architecture, interiors, and landscape.',
+  allProjectsButton: 'Start a project',
+  servicesLabel: 'Our Services',
+  servicesTitle: 'Crafting spaces with intent.',
   aboutTitle: 'Designing spaces that feel natural, intentional, and alive.',
   aboutText: 'We shape architectural and interior experiences around the relationship between people, nature, and atmosphere. Every project is approached with clarity, warmth, and a deep respect for the land and the lived experience of the space.',
   insightTitle: 'Thoughtful stories and design insight from our practice.',
@@ -17,6 +30,16 @@ const defaultSiteContent = {
   ],
   careerTitle: 'Join a studio that designs with care and composition.',
   careerText: 'We are growing our studio and looking for curious collaborators who value craftsmanship, spatial clarity, and a meaningful architectural process.',
+  contactLabel: 'Contact',
+  contactTitle: 'Let’s build something meaningful.',
+  contactText: 'We work with hospitality, residential, cultural, and landscape-led projects across Indonesia and beyond.',
+  footerAbout: 'About',
+  footerProjects: 'Projects',
+  footerInsights: 'Insights',
+  footerCareer: 'Career',
+  footerContact: 'Contact',
+  styleSettings: { fontFamily: 'DM Sans', headingFont: 'Space Grotesk', baseFontSize: '16', headingScale: '1', sectionSpacing: '8', accentColor: '#f36f3d', backgroundColor: '#ffffff', textColor: '#080808' },
+  sectionOrder: ['projects', 'all-projects', 'services', 'insights', 'career', 'contact'],
   contactPhone: '+62 88102 2020 380',
   contactAddress: 'Jalan Pulolaut No 27, Bandung, West Java',
   contactEmail: 'hello@studioasa.co',
@@ -126,6 +149,17 @@ async function renderProfileForm() {
   form.heroTitle.value = content.heroTitle || defaultSiteContent.heroTitle;
   form.heroButton.value = content.heroButton || defaultSiteContent.heroButton;
   form.heroImage.value = content.heroImage || defaultSiteContent.heroImage;
+  form.heroMetaStudio.value = content.heroMetaStudio || defaultSiteContent.heroMetaStudio;
+  form.heroMetaCoord.value = content.heroMetaCoord || defaultSiteContent.heroMetaCoord;
+  form.heroMetaSystem.value = content.heroMetaSystem || defaultSiteContent.heroMetaSystem;
+  form.heroMetaScale.value = content.heroMetaScale || defaultSiteContent.heroMetaScale;
+  form.heroMetaSpace.value = content.heroMetaSpace || defaultSiteContent.heroMetaSpace;
+  form.heroMetaCode.value = content.heroMetaCode || defaultSiteContent.heroMetaCode;
+  form.selectedLabel.value = content.selectedLabel || defaultSiteContent.selectedLabel;
+  form.selectedTitle.value = content.selectedTitle || defaultSiteContent.selectedTitle;
+  form.allProjectsLabel.value = content.allProjectsLabel || defaultSiteContent.allProjectsLabel;
+  form.allProjectsTitle.value = content.allProjectsTitle || defaultSiteContent.allProjectsTitle;
+  form.allProjectsButton.value = content.allProjectsButton || defaultSiteContent.allProjectsButton;
   form.contactPhone.value = content.contactPhone || defaultSiteContent.contactPhone;
   form.contactAddress.value = content.contactAddress || defaultSiteContent.contactAddress;
   form.contactEmail.value = content.contactEmail || defaultSiteContent.contactEmail;
@@ -138,6 +172,17 @@ async function renderProfileForm() {
 
   const heroPreview = document.getElementById('heroPreview');
   if (heroPreview) heroPreview.src = content.heroImage || defaultSiteContent.heroImage;
+}
+
+async function renderStyleForm() {
+  const form = document.getElementById('styleForm');
+  if (!form) return;
+  const content = await readStoredContent();
+  const settings = { ...defaultSiteContent.styleSettings, ...(content.styleSettings || {}) };
+  Object.keys(settings).forEach((key) => { if (form[key]) form[key].value = settings[key]; });
+  const order = content.sectionOrder || defaultSiteContent.sectionOrder;
+  const list = document.getElementById('sectionOrderList');
+  order.forEach((id) => { const item = list?.querySelector(`[data-section-id="${id}"]`); if (item) list.appendChild(item); });
 }
 
 async function renderAboutForm() {
@@ -168,12 +213,22 @@ async function renderSectionsForm() {
   form.insightThreeText.value = insights[2]?.text || '';
   form.careerTitle.value = content.careerTitle || defaultSiteContent.careerTitle;
   form.careerText.value = content.careerText || defaultSiteContent.careerText;
+  form.servicesLabel.value = content.servicesLabel || defaultSiteContent.servicesLabel;
+  form.servicesTitle.value = content.servicesTitle || defaultSiteContent.servicesTitle;
   form.serviceOneName.value = services[0]?.name || '';
   form.serviceOneCount.value = services[0]?.count || '';
   form.serviceTwoName.value = services[1]?.name || '';
   form.serviceTwoCount.value = services[1]?.count || '';
   form.serviceThreeName.value = services[2]?.name || '';
   form.serviceThreeCount.value = services[2]?.count || '';
+  form.contactLabel.value = content.contactLabel || defaultSiteContent.contactLabel;
+  form.contactTitle.value = content.contactTitle || defaultSiteContent.contactTitle;
+  form.contactText.value = content.contactText || defaultSiteContent.contactText;
+  form.footerAbout.value = content.footerAbout || defaultSiteContent.footerAbout;
+  form.footerProjects.value = content.footerProjects || defaultSiteContent.footerProjects;
+  form.footerInsights.value = content.footerInsights || defaultSiteContent.footerInsights;
+  form.footerCareer.value = content.footerCareer || defaultSiteContent.footerCareer;
+  form.footerContact.value = content.footerContact || defaultSiteContent.footerContact;
 }
 
 async function renderPagesList() {
@@ -269,6 +324,7 @@ async function initializeAdminDashboard() {
   }
 
   await renderProfileForm();
+  await renderStyleForm();
   await renderAboutForm();
   await renderSectionsForm();
   await renderPagesList();
@@ -320,6 +376,17 @@ async function initializeAdminDashboard() {
       content.heroSubtitle = profileForm.heroSubtitle.value.trim() || defaultSiteContent.heroSubtitle;
       content.heroTitle = profileForm.heroTitle.value.trim() || defaultSiteContent.heroTitle;
       content.heroButton = profileForm.heroButton.value.trim() || defaultSiteContent.heroButton;
+      content.heroMetaStudio = profileForm.heroMetaStudio.value.trim() || defaultSiteContent.heroMetaStudio;
+      content.heroMetaCoord = profileForm.heroMetaCoord.value.trim() || defaultSiteContent.heroMetaCoord;
+      content.heroMetaSystem = profileForm.heroMetaSystem.value.trim() || defaultSiteContent.heroMetaSystem;
+      content.heroMetaScale = profileForm.heroMetaScale.value.trim() || defaultSiteContent.heroMetaScale;
+      content.heroMetaSpace = profileForm.heroMetaSpace.value.trim() || defaultSiteContent.heroMetaSpace;
+      content.heroMetaCode = profileForm.heroMetaCode.value.trim() || defaultSiteContent.heroMetaCode;
+      content.selectedLabel = profileForm.selectedLabel.value.trim() || defaultSiteContent.selectedLabel;
+      content.selectedTitle = profileForm.selectedTitle.value.trim() || defaultSiteContent.selectedTitle;
+      content.allProjectsLabel = profileForm.allProjectsLabel.value.trim() || defaultSiteContent.allProjectsLabel;
+      content.allProjectsTitle = profileForm.allProjectsTitle.value.trim() || defaultSiteContent.allProjectsTitle;
+      content.allProjectsButton = profileForm.allProjectsButton.value.trim() || defaultSiteContent.allProjectsButton;
       content.contactPhone = profileForm.contactPhone.value.trim() || defaultSiteContent.contactPhone;
       content.contactAddress = profileForm.contactAddress.value.trim() || defaultSiteContent.contactAddress;
       content.contactEmail = profileForm.contactEmail.value.trim() || defaultSiteContent.contactEmail;
@@ -339,6 +406,22 @@ async function initializeAdminDashboard() {
     });
   }
 
+  const styleForm = document.getElementById('styleForm');
+  const orderList = document.getElementById('sectionOrderList');
+  let draggedSection;
+  orderList?.querySelectorAll('[data-section-id]').forEach((item) => {
+    item.addEventListener('dragstart', () => { draggedSection = item; item.classList.add('is-dragging'); });
+    item.addEventListener('dragend', () => { draggedSection = null; item.classList.remove('is-dragging'); });
+    item.addEventListener('dragover', (event) => { event.preventDefault(); if (draggedSection && draggedSection !== item) item.parentNode.insertBefore(draggedSection, item); });
+  });
+  styleForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const content = await readStoredContent();
+    content.styleSettings = Object.fromEntries(['fontFamily', 'headingFont', 'baseFontSize', 'headingScale', 'sectionSpacing', 'accentColor', 'backgroundColor', 'textColor'].map((key) => [key, styleForm[key].value.trim()]));
+    content.sectionOrder = [...(orderList?.children || [])].map((item) => item.dataset.sectionId);
+    try { await saveContent(content); setStatus('Design settings saved successfully.'); } catch (error) { setStatus(`Design update failed: ${error.message}`, true); }
+  });
+
   const sectionsForm = document.getElementById('sectionsForm');
   if (sectionsForm) {
     sectionsForm.addEventListener('submit', async (event) => {
@@ -352,11 +435,21 @@ async function initializeAdminDashboard() {
       ];
       content.careerTitle = sectionsForm.careerTitle.value.trim() || defaultSiteContent.careerTitle;
       content.careerText = sectionsForm.careerText.value.trim() || defaultSiteContent.careerText;
+      content.servicesLabel = sectionsForm.servicesLabel.value.trim() || defaultSiteContent.servicesLabel;
+      content.servicesTitle = sectionsForm.servicesTitle.value.trim() || defaultSiteContent.servicesTitle;
       content.services = [
         { name: sectionsForm.serviceOneName.value.trim(), count: sectionsForm.serviceOneCount.value.trim() },
         { name: sectionsForm.serviceTwoName.value.trim(), count: sectionsForm.serviceTwoCount.value.trim() },
         { name: sectionsForm.serviceThreeName.value.trim(), count: sectionsForm.serviceThreeCount.value.trim() }
       ];
+      content.contactLabel = sectionsForm.contactLabel.value.trim() || defaultSiteContent.contactLabel;
+      content.contactTitle = sectionsForm.contactTitle.value.trim() || defaultSiteContent.contactTitle;
+      content.contactText = sectionsForm.contactText.value.trim() || defaultSiteContent.contactText;
+      content.footerAbout = sectionsForm.footerAbout.value.trim() || defaultSiteContent.footerAbout;
+      content.footerProjects = sectionsForm.footerProjects.value.trim() || defaultSiteContent.footerProjects;
+      content.footerInsights = sectionsForm.footerInsights.value.trim() || defaultSiteContent.footerInsights;
+      content.footerCareer = sectionsForm.footerCareer.value.trim() || defaultSiteContent.footerCareer;
+      content.footerContact = sectionsForm.footerContact.value.trim() || defaultSiteContent.footerContact;
       try {
         await saveContent(content);
         setStatus('Homepage sections updated successfully.');
