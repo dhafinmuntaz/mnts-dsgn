@@ -236,6 +236,7 @@ function initHeroScroll() {
   const featured = document.querySelector('#projects');
   if (!hero || !featured) return;
 
+  if (window.matchMedia('(max-width: 900px)').matches) return;
   let isMoving = false;
   hero.addEventListener('wheel', (event) => {
     if (event.deltaY <= 0 || isMoving) return;
@@ -247,23 +248,33 @@ function initHeroScroll() {
 }
 
 function initReveal() {
-  const revealItems = document.querySelectorAll('section, .service-item, .info-panel, .contact-box');
+  const revealItems = document.querySelectorAll('section, .service-item, .info-panel, .contact-box, .project-scroll-item');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
 
   revealItems.forEach((item) => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(18px)';
-    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    item.classList.add('reveal-item');
     observer.observe(item);
   });
+}
+
+function initImageParallax() {
+  const images = document.querySelectorAll('[data-hero-image], .featured-project-card img, .project-scroll-item img');
+  if (!images.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  images.forEach((image) => image.classList.add('image-drift'));
+  window.addEventListener('scroll', () => {
+    images.forEach((image) => {
+      const bounds = image.getBoundingClientRect();
+      const progress = (window.innerHeight / 2 - (bounds.top + bounds.height / 2)) / Math.max(window.innerHeight, 1);
+      image.style.transform = `scale(1.04) translateY(${progress * -12}px)`;
+    });
+  }, { passive: true });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -273,6 +284,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initMobileMenu();
   initHeroScroll();
   initReveal();
+  initImageParallax();
   window.addEventListener('storage', () => populateSite());
   window.addEventListener('siteDataUpdated', () => populateSite());
 });
