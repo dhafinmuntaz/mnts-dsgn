@@ -231,8 +231,28 @@ function initMobileMenu() {
   });
 }
 
+function initThemeToggle() {
+  const toggle = document.querySelector('.theme-toggle');
+  if (!toggle) return;
+
+  const applyTheme = (isDark) => {
+    document.body.classList.toggle('dark-mode', isDark);
+    toggle.setAttribute('aria-pressed', String(isDark));
+    toggle.setAttribute('aria-label', isDark ? 'Use light mode' : 'Use dark mode');
+    toggle.innerHTML = `<span aria-hidden="true">${isDark ? '○' : '◐'}</span>`;
+  };
+
+  const savedTheme = window.localStorage.getItem('mnts-theme');
+  applyTheme(savedTheme === 'dark');
+  toggle.addEventListener('click', () => {
+    const isDark = !document.body.classList.contains('dark-mode');
+    applyTheme(isDark);
+    window.localStorage.setItem('mnts-theme', isDark ? 'dark' : 'light');
+  });
+}
+
 function initReveal() {
-  const revealItems = document.querySelectorAll('section, .service-item, .info-panel, .contact-box, .project-scroll-item');
+  const revealItems = document.querySelectorAll('section, .section-heading, .text-block h2, .featured-project-card, .service-item, .info-panel, .contact-box, .project-scroll-item, .contents-list li');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -249,7 +269,7 @@ function initReveal() {
 }
 
 function initImageParallax() {
-  const images = document.querySelectorAll('[data-hero-image], .featured-project-card img, .project-scroll-item img');
+  const images = document.querySelectorAll('.featured-project-card img, .project-scroll-item img');
   if (!images.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   images.forEach((image) => image.classList.add('image-drift'));
   window.addEventListener('scroll', () => {
@@ -261,13 +281,71 @@ function initImageParallax() {
   }, { passive: true });
 }
 
+function initHeroScrollMotion() {
+  const hero = document.querySelector('.hero');
+  if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+  const updateHero = () => {
+    const progress = Math.min(Math.max(window.scrollY / Math.max(hero.offsetHeight, 1), 0), 1);
+    const fade = Math.max(0, 1 - progress * 0.9);
+    const shift = progress * -38;
+    const imageScale = 1.06 + progress * 0.08;
+    hero.style.setProperty('--hero-opacity', fade.toFixed(3));
+    hero.style.setProperty('--hero-shift', `${shift.toFixed(1)}px`);
+    hero.style.setProperty('--hero-image-scale', imageScale.toFixed(3));
+    hero.classList.toggle('is-scrolling', progress > 0.01);
+    ticking = false;
+  };
+
+  const requestUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateHero);
+  };
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  updateHero();
+}
+
+function initSectionTitleFade() {
+  const titles = [...document.querySelectorAll('main > section:not(.hero) .section-heading, main > section:not(.hero) .text-block h2')];
+  if (!titles.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+  const updateTitles = () => {
+    const headerHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+    titles.forEach((title) => {
+      const bounds = title.getBoundingClientRect();
+      const fadeDistance = 120;
+      const opacity = Math.min(Math.max((bounds.top - headerHeight) / fadeDistance, 0), 1);
+      title.style.setProperty('--title-scroll-opacity', opacity.toFixed(3));
+    });
+    ticking = false;
+  };
+
+  const requestUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateTitles);
+  };
+
+  titles.forEach((title) => title.classList.add('section-title-fade'));
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  updateTitles();
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await populateSite();
   if (document.getElementById('projectDetailTitle')) await populateProjectDetail();
   initSmoothScroll();
   initMobileMenu();
+  initThemeToggle();
   initReveal();
   initImageParallax();
+  initHeroScrollMotion();
+  initSectionTitleFade();
   window.addEventListener('storage', () => populateSite());
   window.addEventListener('siteDataUpdated', () => populateSite());
 });
